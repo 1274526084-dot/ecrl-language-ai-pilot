@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>第8课教师工具台</title>
+  <style>
+    :root{--navy:#102f47;--blue:#1d658b;--cyan:#e8f5f7;--gold:#f2b84b;--green:#24775d;--red:#a23b3b;--ink:#17232b;--muted:#65747d;--line:#dce5e9;--paper:#f3f6f8;--white:#fff;--shadow:0 10px 30px rgba(16,47,71,.09)}
+    *{box-sizing:border-box}html{font-size:16px}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.55}button,input,select{font:inherit}button{cursor:pointer}
+    .hidden{display:none!important}.top{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 4px 18px #102f4730}.topin{max-width:1240px;margin:auto;padding:15px 22px;display:flex;justify-content:space-between;gap:18px;align-items:center}.brand{font-size:20px;font-weight:900}.brand small{display:block;font-size:13px;font-weight:500;opacity:.75;margin-top:2px}.top-actions{display:flex;gap:9px;align-items:center}
+    .shell{max-width:1240px;margin:auto;padding:24px 22px 48px}.notice{display:flex;justify-content:space-between;gap:14px;align-items:center;background:#fff7e6;border:1px solid #f4d89e;border-radius:14px;padding:12px 16px;margin-bottom:18px}.notice strong{color:#765213}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:800;background:var(--cyan);color:var(--blue)}
+    .tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.tab{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:10px 16px;font-weight:800}.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.metric,.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.metric{padding:18px}.metric .label{font-size:14px;color:var(--muted);font-weight:700}.metric strong{display:block;font-size:30px;line-height:1.2;margin-top:8px;color:var(--navy)}.metric small{color:var(--muted)}
+    .columns{display:grid;grid-template-columns:1.3fr .9fr;gap:18px}.card{padding:20px;margin-bottom:18px}h1,h2,h3{line-height:1.25;margin:0 0 12px}h1{font-size:27px}h2{font-size:20px}h3{font-size:16px}.muted{color:var(--muted)}
+    .bar-row{display:grid;grid-template-columns:145px 1fr 42px;gap:10px;align-items:center;margin:13px 0}.track{height:12px;background:#edf1f3;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),#4b9bb0)}.fill.gold{background:linear-gradient(90deg,#d9941f,var(--gold))}.fill.green{background:linear-gradient(90deg,var(--green),#58a487)}
+    .profile{border:1px solid var(--line);border-radius:13px;padding:14px;margin-top:10px}.profile b{color:var(--navy)}.profile ul{margin:8px 0 0;padding-left:20px}.profile li{margin:5px 0}.tier{display:flex;align-items:center;gap:10px;margin:12px 0}.dot{width:11px;height:11px;border-radius:50%;background:var(--blue)}.dot.gold{background:var(--gold)}.dot.green{background:var(--green)}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-bottom:14px}.filters{display:flex;gap:9px;flex-wrap:wrap}.field{border:1px solid #bfcbd2;border-radius:10px;background:#fff;min-height:43px;padding:9px 11px}.search{min-width:240px}.btn{border:0;border-radius:10px;background:var(--navy);color:#fff;font-weight:800;padding:10px 15px;min-height:43px}.btn.secondary{background:#edf3f6;color:var(--navy)}.btn.gold{background:var(--gold);color:#392a0e}.btn.outline{background:#fff;color:var(--navy);border:1px solid #b9c8d0}.btn.small{padding:7px 10px;min-height:35px;font-size:14px}
+    .tablebox{overflow:auto;border:1px solid var(--line);border-radius:13px}table{width:100%;border-collapse:collapse;background:#fff;min-width:860px}th,td{padding:12px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}th{font-size:13px;color:#53636d;background:#f7f9fa;position:sticky;top:0}tbody tr:hover{background:#f3f8fa}.status{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:800}.status.yes{background:#e4f4ed;color:#1d6b51}.status.no{background:#eef1f3;color:#687781}.status.partial{background:#fff2d8;color:#815b11}
+    .drop{border:2px dashed #a9c1cc;background:#f6fbfc;border-radius:16px;padding:32px 18px;text-align:center}.drop h2{margin-bottom:6px}.drop input{max-width:100%}.result{margin-top:14px;border-radius:11px;padding:12px 14px;background:#edf7f2;color:#1e654e;font-weight:700}.result.error{background:#fff0f0;color:#8c2e2e}.steps{margin:0;padding-left:22px}.steps li{margin:8px 0}
+    dialog{border:0;border-radius:18px;padding:0;width:min(700px,calc(100% - 28px));box-shadow:0 25px 80px #07192755}dialog::backdrop{background:#102f4770}.dialogin{padding:22px}.dialoghead{display:flex;justify-content:space-between;gap:12px}.close{border:0;background:#eef3f5;color:var(--navy);border-radius:9px;width:40px;height:40px;font-size:20px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detailbox{background:#f4f7f8;border-radius:12px;padding:13px}.detailbox strong{display:block;color:var(--navy);font-size:19px;margin-top:4px}.full{grid-column:1/-1}
+    .loginwrap{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 20% 15%,#e4f5f7,transparent 35%),linear-gradient(135deg,#eef3f6,#f7f9fa)}.login{width:min(460px,100%);background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 24px 70px #102f4720}.loginmark{width:52px;height:52px;border-radius:15px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:900;font-size:21px;margin-bottom:18px}.login label{display:block;font-weight:800;margin:14px 0 6px}.error{color:var(--red);font-weight:700;margin-top:9px}.foot{color:var(--muted);font-size:13px;text-align:center;margin-top:25px}
+    @media(max-width:850px){.grid4{grid-template-columns:1fr 1fr}.columns{grid-template-columns:1fr}.notice{align-items:flex-start;flex-direction:column}.topin{align-items:flex-start}.detail-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+    @media(max-width:520px){.grid4{grid-template-columns:1fr}.shell{padding:16px 13px 36px}.topin{padding:13px}.brand{font-size:17px}.top-actions .tag{display:none}.search{min-width:100%;width:100%}.filters{width:100%}.filters select{flex:1}.card{padding:16px}}
+  </style>
+</head>
+<body>
+  <section id="loginView" class="loginwrap">
+    <form id="loginForm" class="login">
+      <div class="loginmark">教</div>
+      <h1>教师工具台</h1>
+      <p class="muted">《实用汉语5》第8课学习画像与任务数据</p>
+      <label for="password">教师端密码</label>
+      <input id="password" class="field" type="password" autocomplete="current-password" required>
+      <button class="btn" style="width:100%;margin-top:16px" type="submit">进入工具台</button>
+      <div id="loginError" class="error" role="alert"></div>
+    </form>
+  </section>
+
+  <div id="appView" class="hidden">
+    <header class="top"><div class="topin"><div class="brand">第8课《旧梦》教师工具台<small>先前学习画像 · 任务记录 · 班级分析</small></div><div class="top-actions"><span class="tag">23名学生</span><button id="refreshCloud" class="btn gold small" type="button">刷新数据</button><button id="logout" class="btn secondary small" type="button">退出</button></div></div></header>
+    <main class="shell">
+      <div class="notice"><div><strong>画像说明：</strong>“平台初始画像”用于安排分层教学；学生从网页提交后，系统会自动加入真实成绩与任务完成信息。<div id="cloudStatus" class="muted">等待连接在线数据……</div></div><span class="tag">建立于 2026-09-08</span></div>
+      <nav class="tabs" aria-label="教师工具台栏目">
+        <button class="tab active" data-view="overview" type="button">班级概览</button>
+        <button class="tab" data-view="students" type="button">学生画像</button>
+        <button class="tab" data-view="import" type="button">导入学习记录</button>
+      </nav>
+
+      <section id="overview" class="view">
+        <div class="grid4">
+          <article class="metric"><div class="label">班级人数</div><strong>23</strong><small>老挝、马来西亚留学生</small></article>
+          <article class="metric"><div class="label">已导入课前记录</div><strong id="preCount">0</strong><small>学生实际提交</small></article>
+          <article class="metric"><div class="label">已导入课后记录</div><strong id="postCount">0</strong><small>学生实际提交</small></article>
+          <article class="metric"><div class="label">课后客观题平均分</div><strong id="postAverage">—</strong><small>满分100分</small></article>
+        </div>
+        <div class="columns">
+          <article class="card">
+            <h2>班级起点画像</h2>
+            <p class="muted">依据课程对象、既有汉语水平和专业培养目标建立。</p>
+            <div class="bar-row"><span>HSK3巩固层</span><div class="track"><div class="fill gold" style="width:35%"></div></div><b>8人</b></div>
+            <div class="bar-row"><span>HSK3—4过渡层</span><div class="track"><div class="fill" style="width:43%"></div></div><b>10人</b></div>
+            <div class="bar-row"><span>HSK4拓展层</span><div class="track"><div class="fill green" style="width:22%"></div></div><b>5人</b></div>
+            <h3 style="margin-top:22px">重点学习需要</h3>
+            <div class="bar-row"><span>听力关键信息</span><div class="track"><div class="fill" style="width:78%"></div></div><b>18</b></div>
+            <div class="bar-row"><span>比较句语序</span><div class="track"><div class="fill gold" style="width:70%"></div></div><b>16</b></div>
+            <div class="bar-row"><span>连贯口头表达</span><div class="track"><div class="fill green" style="width:65%"></div></div><b>15</b></div>
+            <div class="bar-row"><span>专业情境迁移</span><div class="track"><div class="fill" style="width:57%"></div></div><b>13</b></div>
+          </article>
+          <article class="card">
+            <h2>本课教学建议</h2>
+            <div class="profile"><b>课文理解</b><ul><li>先听录音判断人物和关系</li><li>分段找证据，避免只猜大意</li><li>用人物图片辅助复述</li></ul></div>
+            <div class="profile"><b>语法训练</b><ul><li>突出“比、没有、比……还……”</li><li>先排序，再完成专业句子</li><li>分层提供句框和开放表达</li></ul></div>
+            <div class="profile"><b>专业迁移</b><ul><li>比较车次、车站与服务方案</li><li>用本课新词描述旅客或同事</li><li>以口头表达或短文形成成果</li></ul></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="students" class="view hidden">
+        <article class="card">
+          <div class="toolbar">
+            <div><h2>学生画像</h2><div class="muted">点击“查看”可检查个人起点画像和真实任务记录。</div></div>
+            <div class="filters"><input id="search" class="field search" placeholder="搜索姓名或账号"><select id="tierFilter" class="field"><option value="">全部层级</option><option>巩固层</option><option>过渡层</option><option>拓展层</option></select></div>
+          </div>
+          <div class="tablebox"><table><thead><tr><th>学生</th><th>账号</th><th>起点分层</th><th>学习重点</th><th>课前</th><th>课后</th><th></th></tr></thead><tbody id="studentRows"></tbody></table></div>
+        </article>
+      </section>
+
+      <section id="import" class="view hidden">
+        <div class="columns">
+          <article class="card">
+            <div class="drop">
+              <h2>批量导入学生学习记录</h2>
+              <p class="muted">可一次选择多名学生从网页下载的 JSON 文件。</p>
+              <input id="fileInput" type="file" accept=".json,application/json" multiple>
+              <div style="margin-top:14px"><button id="importBtn" class="btn" type="button">导入所选文件</button></div>
+            </div>
+            <div id="importResult" class="hidden"></div>
+          </article>
+          <article class="card">
+            <h2>收集流程</h2>
+            <ol class="steps"><li>学生在网页完成任务并点击提交。</li><li>记录自动上传到教师工具台。</li><li>教师点击顶部“刷新数据”查看最新结果。</li><li>仅在网络异常时使用左侧的文件导入作为备用。</li></ol>
+            <div class="profile"><b>导入后自动更新</b><ul><li>课前与课后完成状态</li><li>客观题成绩和班级平均分</li><li>学习信心变化</li><li>个人写作与专业任务原文</li></ul></div>
+            <div class="toolbar" style="margin-top:18px"><button id="exportCsv" class="btn gold" type="button">导出班级CSV</button><button id="backupJson" class="btn outline" type="button">备份全部数据</button></div>
+          </article>
+        </div>
+      </section>
+      <div class="foot">学生提交数据保存在腾讯云；当前设备也会保留最近一次同步结果。建议定期使用“备份全部数据”。</div>
+    </main>
+  </div>
+
+  <dialog id="studentDialog"><div class="dialogin"><div class="dialoghead"><div><h2 id="detailName"></h2><div id="detailCode" class="muted"></div></div><button id="closeDialog" class="close" type="button" aria-label="关闭">×</button></div><div id="detailBody" class="detail-grid" style="margin-top:18px"></div></div></dialog>
+
+  <script>
+    const key='ecrl_teacher_records_v1';
+    const API_URL='https://cloudbase-d3gxxe4l88c3d5907-1431364187.ap-shanghai.app.tcloudbase.com/ecrl/lesson8';
+    let teacherPassword='';
+    let records=[];
+    try{records=JSON.parse(sessionStorage.getItem(key)||'[]')}catch{records=[]}
+    const byId=id=>document.getElementById(id); const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function persist(){sessionStorage.setItem(key,JSON.stringify(records))}
+    function mergeCloud(cloudRecords,profiles){const cached=new Map(records.map(r=>[r.code,r]));records=(Array.isArray(profiles)?profiles:[]).map(p=>{const old=cached.get(p.code)||{};return{...p,pre:old.pre||null,post:old.post||null}});cloudRecords.forEach(c=>{const r=records.find(x=>x.code===c.studentCode);if(!r)return;if(c.pre)r.pre=c.pre;if(c.post)r.post=c.post;r.lastImportedAt=c.updatedAt||new Date().toISOString()});persist();renderAll()}
+    async function syncFromCloud(){byId('cloudStatus').textContent='正在读取腾讯云中的学生记录……';try{const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'list',teacherPassword})});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||'读取失败');mergeCloud(result.records||[],result.profiles||[]);const time=new Date(result.fetchedAt||Date.now()).toLocaleString('zh-CN',{hour12:false});byId('cloudStatus').textContent=`已连接在线数据库：${result.records?.length||0}名学生有提交记录；更新时间 ${time}`;return true}catch(error){byId('cloudStatus').textContent=`在线数据读取失败：${error.message}`;return false}}
+    function postTotal(p){return p?Number(p.vocabulary||0)+Number(p.reading||0)+Number(p.grammar||0)+Number(p.ordering||0):null}
+    function status(rec){if(rec.pre&&rec.post)return['已完成','yes'];if(rec.pre||rec.post)return['部分完成','partial'];return['待导入','no']}
+    function renderOverview(){const pres=records.filter(r=>r.pre),posts=records.filter(r=>r.post),scores=posts.map(r=>postTotal(r));byId('preCount').textContent=pres.length;byId('postCount').textContent=posts.length;byId('postAverage').textContent=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):'—'}
+    function renderRows(){const q=byId('search').value.trim().toLowerCase(),tier=byId('tierFilter').value;const list=records.filter(r=>(!q||r.name.toLowerCase().includes(q)||r.code.toLowerCase().includes(q))&&(!tier||r.tier===tier));byId('studentRows').innerHTML=list.map(r=>{const st=status(r);return `<tr><td><b>${esc(r.name)}</b></td><td>${esc(r.code)}</td><td><span class="tag">${esc(r.tier)}</span></td><td>${esc(r.focus)}</td><td><span class="status ${r.pre?'yes':'no'}">${r.pre?`${r.pre.quizScore??'—'}分`:'待导入'}</span></td><td><span class="status ${r.post?'yes':'no'}">${r.post?`${postTotal(r)}分`:'待导入'}</span></td><td><button class="btn small outline" data-code="${r.code}" type="button">查看</button></td></tr>`}).join('')||'<tr><td colspan="7" class="muted">没有符合条件的学生。</td></tr>';document.querySelectorAll('[data-code]').forEach(b=>b.onclick=()=>openDetail(b.dataset.code))}
+    function ratingAverage(values){if(!Array.isArray(values)||!values.length)return'—';return (values.reduce((a,b)=>a+Number(b||0),0)/values.length).toFixed(1)}
+    function openDetail(code){const r=records.find(x=>x.code===code);if(!r)return;byId('detailName').textContent=r.name;byId('detailCode').textContent=r.code;const total=postTotal(r.post);byId('detailBody').innerHTML=`
+      <div class="detailbox"><span class="muted">起点分层</span><strong>${esc(r.tier)} · ${esc(r.hsk)}</strong></div>
+      <div class="detailbox"><span class="muted">建议学习路径</span><strong style="font-size:16px">${esc(r.path)}</strong></div>
+      <div class="detailbox"><span class="muted">学习重点</span><strong style="font-size:16px">${esc(r.focus)}</strong></div>
+      <div class="detailbox"><span class="muted">适合的支持</span><strong style="font-size:16px">${esc(r.support)}</strong></div>
+      <div class="detailbox full"><span class="muted">需要关注</span><strong style="font-size:16px">${esc(r.risk)}</strong></div>
+      <div class="detailbox"><span class="muted">课前记录</span><strong>${r.pre?`${r.pre.quizScore??'—'}分 · 信心${ratingAverage(r.pre.ratings)}`:'尚未导入'}</strong></div>
+      <div class="detailbox"><span class="muted">课后记录</span><strong>${r.post?`${total}分 · 信心${ratingAverage(r.post.ratings)}`:'尚未导入'}</strong></div>
+      ${r.post?`<div class="detailbox full"><span class="muted">《我的旧梦》</span><p>${esc(r.post.oldDream||'未填写')}</p></div><div class="detailbox full"><span class="muted">高铁服务比较</span><p>${esc(r.post.rail||'未填写')}</p></div>`:''}`;byId('studentDialog').showModal()}
+    function renderAll(){renderOverview();renderRows()}
+    byId('loginForm').addEventListener('submit',async e=>{e.preventDefault();const button=e.currentTarget.querySelector('[type=submit]');teacherPassword=byId('password').value;button.disabled=true;byId('loginError').textContent='正在连接教师数据库……';const ok=await syncFromCloud();button.disabled=false;if(ok){sessionStorage.setItem('ecrl_teacher_password',teacherPassword);byId('loginView').classList.add('hidden');byId('appView').classList.remove('hidden');byId('loginError').textContent=''}else byId('loginError').textContent='无法登录教师工具台，请检查密码或网络。'});
+    byId('logout').onclick=()=>{sessionStorage.removeItem('ecrl_teacher_password');location.reload()};byId('refreshCloud').onclick=syncFromCloud;
+    document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==b.dataset.view));if(b.dataset.view==='students')renderRows()});
+    byId('search').oninput=renderRows;byId('tierFilter').onchange=renderRows;byId('closeDialog').onclick=()=>byId('studentDialog').close();
+    byId('importBtn').onclick=async()=>{const files=[...byId('fileInput').files],box=byId('importResult');if(!files.length){box.className='result error';box.textContent='请先选择学生学习记录文件。';return}let ok=0,failed=[];for(const file of files){try{const data=JSON.parse(await file.text()),code=data?.student?.code?.toUpperCase(),r=records.find(x=>x.code===code);if(!r)throw new Error('账号不在本班名单');if(data.pre)r.pre=data.pre;if(data.post)r.post=data.post;r.lastImportedAt=new Date().toISOString();ok++}catch(err){failed.push(`${file.name}：${err.message}`)}}persist();renderAll();box.className=failed.length?'result error':'result';box.innerHTML=`成功导入 ${ok} 个文件。${failed.length?'<br>'+failed.map(esc).join('<br>'):''}`};
+    function download(name,text,type='application/json'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+    byId('backupJson').onclick=()=>download(`第8课教师工具台备份-${new Date().toISOString().slice(0,10)}.json`,JSON.stringify({exportedAt:new Date().toISOString(),records},null,2));
+    byId('exportCsv').onclick=()=>{const heads=['姓名','账号','起点分层','HSK基础','学习重点','支持方式','风险点','课前分数','课后总分','课前信心均值','课后信心均值','课前提交时间','课后提交时间'];const rows=records.map(r=>[r.name,r.code,r.tier,r.hsk,r.focus,r.support,r.risk,r.pre?.quizScore??'',postTotal(r.post)??'',ratingAverage(r.pre?.ratings),ratingAverage(r.post?.ratings),r.pre?.submittedAt??'',r.post?.submittedAt??'']);const csv=[heads,...rows].map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');download(`第8课班级学习数据-${new Date().toISOString().slice(0,10)}.csv`,'\ufeff'+csv,'text/csv;charset=utf-8')};
+    teacherPassword=sessionStorage.getItem('ecrl_teacher_password')||'';if(teacherPassword){byId('loginView').classList.add('hidden');byId('appView').classList.remove('hidden');renderAll();syncFromCloud()}
+  </script>
+</body>
+</html>
