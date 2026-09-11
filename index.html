@@ -5,43 +5,68 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>实用汉语5 第8课学习任务</title>
   <style>
-    :root{--navy:#123b5a;--blue:#1f6288;--mint:#dff2eb;--gold:#f0bd55;--ink:#18242c;--muted:#65737d;--line:#dce4e8;--paper:#f5f7f8;--white:#fff;--danger:#a12a2a}
-    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.65}
-    button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:18px 16px;box-shadow:0 4px 18px #123b5a22}
-    .top-inner,.wrap{width:min(860px,calc(100% - 28px));margin:auto}.brand{font-size:21px;font-weight:800}.sub{opacity:.82;font-size:14px}.wrap{padding:22px 0 48px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 6px 20px #123b5a0b}.hidden{display:none!important}
-    h1,h2,h3{line-height:1.25;margin:0 0 12px}h1{font-size:27px}h2{font-size:21px}h3{font-size:17px}.lead{color:var(--muted);margin:0 0 20px}
-    label{display:block;font-weight:700;margin:13px 0 6px}.field{width:100%;border:1px solid #bfcbd2;border-radius:11px;padding:11px 12px;background:#fff;min-height:46px}.field:focus{outline:3px solid #d8edf8;border-color:var(--blue)}
-    .btn{border:0;border-radius:11px;background:var(--navy);color:#fff;font-weight:800;padding:12px 18px;min-height:46px}.btn.secondary{background:#eef4f7;color:var(--navy)}.btn.gold{background:var(--gold);color:#31240d}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.note{background:var(--mint);border-left:5px solid #4e9b7d;padding:12px 14px;border-radius:9px;margin:14px 0}.error{color:var(--danger);font-weight:700;margin-top:10px}.upload-state{margin:14px 0;padding:12px 14px;border-radius:10px;background:#edf7f2;color:#1e654e;font-weight:800}.upload-state.bad{background:#fff0f0;color:#8c2e2e}
-    .student{display:flex;justify-content:space-between;gap:15px;align-items:center;background:var(--navy);color:#fff}.student small{opacity:.78}.badge{display:inline-block;background:var(--mint);color:#185239;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:800;margin-bottom:10px}
-    .q{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}.q:first-child{border-top:0;padding-top:0;margin-top:0}.q-title{font-weight:800;margin-bottom:8px}
-    .opt{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin:7px 0;font-weight:400}.opt input{margin-top:6px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{border:1px solid var(--line);border-radius:10px;padding:9px;font-weight:400}.check input{margin-right:7px}
-    .rating{display:grid;grid-template-columns:1fr 150px;gap:12px;align-items:center;margin:9px 0}.score{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:16px}.score div{background:#edf4f7;border-radius:12px;padding:12px;text-align:center}.score strong{display:block;font-size:22px;color:var(--blue)}
+    :root{--navy:#123b5a;--blue:#24739a;--sky:#eaf5f8;--mint:#dff3e8;--gold:#f0bd55;--coral:#ec725f;--ink:#18242c;--muted:#65737d;--line:#dce4e8;--paper:#f5f7f8;--white:#fff;--danger:#a12a2a}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef5f7 0,#f7f8f8 260px);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.65}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(135deg,#0f344f,#1f668c);color:#fff;padding:20px 16px;box-shadow:0 4px 18px #123b5a22}
+    .top-inner,.wrap{width:min(920px,calc(100% - 28px));margin:auto}.brand{font-size:22px;font-weight:900}.sub{opacity:.83;font-size:14px}.wrap{padding:24px 0 56px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:17px;box-shadow:0 9px 26px #123b5a0c}.hidden{display:none!important}
+    h1,h2,h3{line-height:1.3;margin:0 0 12px}h1{font-size:29px}h2{font-size:22px}h3{font-size:17px}.lead{color:var(--muted);margin:0 0 20px}
+    label{display:block;font-weight:750;margin:13px 0 6px}.field{width:100%;border:1px solid #bfcbd2;border-radius:12px;padding:11px 13px;background:#fff;min-height:47px}.field:focus{outline:3px solid #d8edf8;border-color:var(--blue)}
+    .btn{border:0;border-radius:12px;background:var(--navy);color:#fff;font-weight:850;padding:12px 19px;min-height:47px;transition:.15s transform,.15s opacity}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}.btn.secondary{background:#edf3f6;color:var(--navy)}.btn.gold{background:var(--gold);color:#31240d}.btn.coral{background:var(--coral)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:19px}.note{background:var(--mint);border-left:5px solid #4e9b7d;padding:13px 15px;border-radius:10px;margin:15px 0}.error{color:var(--danger);font-weight:750;margin-top:10px}.upload-state{margin:14px 0;padding:13px 15px;border-radius:11px;background:#edf7f2;color:#1e654e;font-weight:800}.upload-state.bad{background:#fff0f0;color:#8c2e2e}
+    .student{display:flex;justify-content:space-between;gap:15px;align-items:center;background:linear-gradient(135deg,var(--navy),#205e80);color:#fff}.student small{opacity:.84}.badge{display:inline-block;background:var(--mint);color:#185239;padding:4px 11px;border-radius:999px;font-size:13px;font-weight:850;margin-bottom:10px}.badge.gold{background:#fff1cf;color:#73510c}.badge.blue{background:#e2f1f8;color:#155576}
+    .join{display:grid;grid-template-columns:130px 1fr;gap:24px;align-items:center}.joinmark{width:116px;height:116px;border-radius:32px;background:linear-gradient(145deg,var(--gold),#f7d888);display:grid;place-items:center;color:var(--navy);font-size:48px;font-weight:900;box-shadow:inset 0 0 0 9px #ffffff66}.privacy{font-size:13px;color:var(--muted);margin-top:12px}
+    .task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:17px}.task{border:1px solid var(--line);border-radius:16px;padding:17px;background:#fff;display:flex;flex-direction:column}.task.featured{border:2px solid #e6a937;background:linear-gradient(160deg,#fffaf0,#fff)}.task .num{font-size:12px;font-weight:900;color:var(--blue);letter-spacing:.08em}.task h3{margin:7px 0}.task p{font-size:14px;color:var(--muted);margin:0 0 14px;flex:1}.task .btn{width:100%}
+    .q{border:1px solid var(--line);padding:17px;margin:13px 0;border-radius:14px;background:#fbfcfc}.q-title{font-weight:850;margin-bottom:9px;padding:0 5px}.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin:8px 0;font-weight:400;background:#fff}.opt:hover{border-color:#8fb4c7;background:#f4fafc}.opt input{margin-top:6px;accent-color:var(--blue)}.letter{color:var(--blue);font-weight:900;min-width:20px}
+    .section-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:13px}.source{font-size:12px;font-weight:800;color:#66757f;background:#eef2f4;border-radius:999px;padding:5px 10px;white-space:nowrap}.example{background:#fff8e9;border:1px solid #eed59c;border-radius:13px;padding:14px 16px;margin:13px 0}.example b{color:#79540d}.wordbank{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.wordbank span{background:var(--sky);color:#245870;border-radius:999px;padding:5px 10px;font-weight:750}.prompt-list{margin:10px 0;padding-left:23px;columns:2}.counter{text-align:right;color:var(--muted);font-size:13px;margin-top:5px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{border:1px solid var(--line);border-radius:10px;padding:9px;font-weight:400}.check input{margin-right:7px;accent-color:var(--blue)}
+    .rating{display:grid;grid-template-columns:1fr 150px;gap:12px;align-items:center;margin:9px 0}.score{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:16px}.score div{background:#edf4f7;border-radius:12px;padding:12px;text-align:center}.score strong{display:block;font-size:23px;color:var(--blue)}
     .steps{margin:0;padding-left:22px}.steps li{margin:7px 0}.passage{background:#f1f5f7;border-left:4px solid var(--blue);padding:12px 14px;border-radius:8px;margin-bottom:15px}.muted{color:var(--muted);font-size:13px}
-    @media(max-width:640px){.grid,.checks,.score{grid-template-columns:1fr}.rating{grid-template-columns:1fr}.card{padding:18px}.student{align-items:flex-start;flex-direction:column}}
+    @media(max-width:720px){.join{grid-template-columns:1fr}.joinmark{width:82px;height:82px;border-radius:24px;font-size:35px}.task-grid{grid-template-columns:1fr}.grid,.checks,.score{grid-template-columns:1fr}.rating{grid-template-columns:1fr}.prompt-list{columns:1}.card{padding:18px}.student{align-items:flex-start;flex-direction:column}.section-head{display:block}.source{display:inline-block;margin-bottom:10px}}
   </style>
 </head>
 <body>
-  <header class="top"><div class="top-inner"><div class="brand">实用汉语5 第8课《旧梦》</div><div class="sub">课前测试与课后任务</div></div></header>
+  <header class="top"><div class="top-inner"><div class="brand">实用汉语5 · 第8课《旧梦》</div><div class="sub">学生学习任务与过程性记录</div></div></header>
   <main class="wrap">
-    <section id="loginView" class="card">
-      <span class="badge">学生登录</span>
-      <h1>先登录，再开始任务</h1>
-      <p class="lead">请使用老师发给你的个人账号和密码。</p>
-      <form id="loginForm">
-        <label for="code">账号</label><input class="field" id="code" autocomplete="username" placeholder="CHI24-INT01-001" required>
-        <label for="name">密码</label><input class="field" id="name" type="password" autocomplete="current-password" placeholder="请输入密码" required>
-        <div class="actions"><button class="btn" type="submit">登录</button></div>
-        <div id="loginError" class="error" role="alert"></div>
-      </form>
+    <section id="joinView" class="card">
+      <div class="join">
+        <div class="joinmark">学</div>
+        <div><span class="badge">直接参与</span><h1>填写姓名和学号，开始学习</h1><p class="lead">这不是账号登录，不需要密码。每次进入时填写自己的中文名和学号即可。</p>
+          <form id="joinForm">
+            <div class="grid"><div><label for="participantName">中文名</label><input class="field" id="participantName" autocomplete="name" placeholder="例如：王艺" minlength="2" required></div><div><label for="studentNumber">学号</label><input class="field" id="studentNumber" inputmode="text" autocomplete="off" placeholder="请输入学校学号" minlength="3" required></div></div>
+            <div class="actions"><button class="btn" type="submit">进入学习任务</button></div><div id="joinError" class="error" role="alert"></div>
+            <p class="privacy">系统会用学号识别同一名学生；姓名有少量差异时会结合历史记录自动归类。姓名、学号与作答结果将上传到教师工具台。</p>
+          </form>
+        </div>
+      </div>
     </section>
 
     <section id="homeView" class="hidden">
-      <div class="card student"><div><h2 id="hello"></h2><small id="studentCode"></small></div><button class="btn secondary" id="logoutBtn" type="button">退出</button></div>
-      <div class="card"><h2>今天要做什么</h2><ol class="steps"><li><strong>上课前：</strong>完成课前小测试，看到“课前任务已完成”后停下。</li><li><strong>下课后：</strong>返回本网页，完成课后练习和两项写作任务。</li><li><strong>提交记录：</strong>完成后点击提交，系统会自动上传到老师的教师工具台。</li></ol><div class="actions"><button class="btn" id="openPre" type="button">开始课前测试</button><button class="btn gold" id="openPost" type="button">开始课后任务</button><button class="btn secondary" id="downloadExisting" type="button">下载已有学习记录</button></div><p id="statusText" class="muted"></p><p id="downloadHint" class="muted"></p></div>
+      <div class="card student"><div><h2 id="hello"></h2><small id="studentIdentity"></small></div><button class="btn secondary" id="switchBtn" type="button">重新填写信息</button></div>
+      <div class="card"><span class="badge gold">本次重点</span><h2>第一次课回顾测试</h2><p class="lead">请先完成回顾测试。内容包括比较句排序、完成对话、《旧梦》新词和语法、短文写作。</p>
+        <div class="task-grid">
+          <article class="task featured"><div class="num">01 · 约20分钟</div><h3>第一次课回顾测试</h3><p>课本练习四、五、十＋本课新词语法；提交后自动同步教师工具台和学习画像。</p><button class="btn gold" id="openReview" type="button">开始回顾测试</button></article>
+          <article class="task"><div class="num">02 · 课前</div><h3>学习起点画像</h3><p>学习经历、需要和课前小测，用于安排分层学习。</p><button class="btn" id="openPre" type="button">打开课前测试</button></article>
+          <article class="task"><div class="num">03 · 课后</div><h3>第8课课后任务</h3><p>词汇、阅读、比较句与两项表达任务。</p><button class="btn coral" id="openPost" type="button">打开课后任务</button></article>
+        </div>
+        <p id="statusText" class="note"></p><div class="actions"><button class="btn secondary" id="downloadExisting" type="button">备用：下载已有学习记录</button></div><p id="downloadHint" class="muted"></p>
+      </div>
     </section>
+
+    <form id="reviewView" class="hidden">
+      <div class="card student"><div><h2>第一次课回顾测试</h2><small id="reviewStudent"></small></div><button class="btn secondary back" type="button">返回</button></div>
+      <section class="card"><div class="section-head"><div><span class="badge blue">第1部分 · 30分</span><h2>把词语整理成句子</h2><p class="lead">先在心里整理课本中的词语，再选择语序正确的句子。</p></div><span class="source">课本综合练习四</span></div><div id="reviewReorder"></div></section>
+      <section class="card"><div class="section-head"><div><span class="badge blue">第2部分 · 40分</span><h2>模仿例子完成对话</h2><p class="lead">注意“比”“没有”“不比”和“一点儿”的位置。</p></div><span class="source">课本综合练习五</span></div><div class="example"><b>例：</b>昨天20℃，今天21℃。<br>A：今天比昨天热吗？<br>B：今天比昨天热一点儿。</div><div id="reviewDialogue"></div></section>
+      <section class="card"><div class="section-head"><div><span class="badge blue">第3部分 · 30分</span><h2>第8课新词和语法</h2><p class="lead">把新词放进真实句子，也检查比较句的意思。</p></div><span class="source">《旧梦》重点</span></div><div class="wordbank"><span>往事</span><span>难忘</span><span>想起来</span><span>告别</span><span>梦里</span><span>消息</span><span>打听</span><span>比</span><span>没有</span><span>不比</span></div><div id="reviewLanguage"></div></section>
+      <section class="card"><div class="section-head"><div><span class="badge gold">写作 · 不计客观题分数</span><h2>我最好的朋友</h2><p class="lead">写大约70个汉字，尽量使用本课的新词和比较句。</p></div><span class="source">课本第88页 · 第十题</span></div>
+        <ol class="prompt-list"><li>你们什么时候认识？</li><li>他／她是什么样的人？</li><li>有什么难忘的事？</li><li>他／她现在在哪里？</li><li>你们还有联系吗？</li><li>你经常想念他／她吗？</li></ol>
+        <div class="wordbank"><span>往事</span><span>难忘</span><span>忘不了</span><span>想起来</span><span>告别</span><span>出现</span><span>梦里</span><span>消息</span><span>打听</span></div>
+        <div class="example"><b>可以参考这些句子：</b><br>我最好的朋友叫……，我们是……时候认识的。<br>他／她比我……，也很……。<br>有一次……，这件往事让我一直忘不了。<br>虽然我们现在……，但是我常常想起他／她。<br>有时他／她还会出现在我的梦里，我也会向朋友打听他／她的消息。</div>
+        <label for="reviewWriting">我的短文</label><textarea class="field" id="reviewWriting" name="reviewWriting" rows="8" minlength="55" maxlength="260" required placeholder="我最好的朋友叫……"></textarea><div id="reviewCounter" class="counter">0 / 建议70字</div>
+        <label for="reviewConfidence">完成后，你对比较句的信心是多少？</label><select class="field" id="reviewConfidence" name="reviewConfidence" required><option value="">请选择1至5</option><option value="1">1 · 还不会</option><option value="2">2 · 需要很多帮助</option><option value="3">3 · 基本会</option><option value="4">4 · 比较熟练</option><option value="5">5 · 可以自己运用</option></select>
+        <div class="actions"><button class="btn gold" type="submit">提交回顾测试</button></div>
+      </section>
+    </form>
 
     <form id="preView" class="hidden">
       <div class="card student"><div><h2>课前小测试</h2><small id="preStudent"></small></div><button class="btn secondary back" type="button">返回</button></div>
@@ -55,7 +80,7 @@
       <section class="card"><span class="badge">词汇</span><div id="vocabQuestions"></div></section>
       <section class="card"><span class="badge">阅读</span><div class="passage">人老了，往事常常进入梦里。作者记得童年邻居司苔拉：她会说英语和广东话，像姐姐一样领着“我”上学、照顾“我”。到了老年，作者仍然想知道她的消息。</div><div id="readingQuestions"></div></section>
       <section class="card"><span class="badge">语法与排序</span><div id="grammarQuestions"></div><div id="orderQuestions"></div></section>
-      <section class="card"><span class="badge">写作一</span><h2>我的旧梦</h2><p class="lead">写80至200字，写一位难忘的人，至少使用4个本课新词。</p><textarea class="field" name="oldDream" rows="8" minlength="80" required placeholder="往事、难忘、出现、年龄、照顾、告别、刚刚、打听、消息"></textarea></section>
+      <section class="card"><span class="badge">写作一</span><h2>我的旧梦</h2><p class="lead">写80至200字，写一位难忘的人，至少使用4个本课新词。</p><div class="example"><b>句子参考：</b>想起这段往事，我还是忘不了……；虽然我们已经告别，但是……；我常常打听他／她的消息。</div><textarea class="field" name="oldDream" rows="8" minlength="80" required placeholder="往事、难忘、出现、年龄、照顾、告别、刚刚、打听、消息"></textarea></section>
       <section class="card"><span class="badge">写作二</span><h2>高铁服务比较</h2><p class="lead">用3至5句话比较A线和B线，至少使用2种比较句，并给出建议。</p><div class="passage"><strong>A线：</strong>8:10发车，运行35分钟，停8站<br><strong>B线：</strong>8:25发车，运行42分钟，停10站</div><textarea class="field" name="rail" rows="6" required placeholder="A线比B线……；B线没有A线……；因为……，所以我建议您……"></textarea></section>
       <section class="card"><span class="badge">课后自评</span><div id="postRatings"></div><div class="actions"><button class="btn" type="submit">提交课后任务</button></div></section>
     </form>
@@ -63,35 +88,62 @@
     <section id="doneView" class="card hidden"><span class="badge">完成</span><h1 id="doneTitle"></h1><p id="doneText" class="lead"></p><div id="uploadState" class="upload-state hidden"></div><div id="scoreBox" class="score"></div><div class="actions"><button class="btn secondary" id="doneHome" type="button">返回首页</button><button class="btn hidden" id="retryUpload" type="button">重新上传给老师</button><button class="btn secondary" id="downloadBtn" type="button">备用：下载学习记录</button></div></section>
   </main>
   <script>
-    const pre=[
-      ['“难忘”最接近哪个意思？',['很难忘记','刚刚知道','不想打听'],0],['“打听消息”是什么意思？',['向别人询问情况','跟别人告别','把事情忘记'],0],['短文中，司苔拉和“我”最可能是什么关系？',['童年的邻居和朋友','现在的同事','老师和学生'],0],['妈妈为什么请司苔拉领“我”上学？',['“我”年龄小，一个人过马路不安全','“我”不会说广东话','司苔拉是老师'],0],['A线35分钟，B线42分钟。选择正确句子。',['A线比B线快7分钟','A线比B线7分钟快','B线比A线快7分钟'],0],['节假日的车站比平时还忙。哪句结构正确？',['高峰期比平峰期更忙','高峰期更比平峰期忙','高峰期比平峰期忙更'],0]
+    const reviewReorder=[
+      ['这本小说　没有　有意思　那本',['这本小说没有那本有意思。','那本小说没有这本小说有意思。','这本小说比那本没有有意思。'],1],
+      ['我　比　晚　姐姐　睡得',['姐姐比睡得我晚。','我睡得姐姐比晚。','我比姐姐睡得晚。'],2],
+      ['这儿的东西　比　不　贵　我们那儿',['这儿的东西不比我们那儿贵。','我们那儿不贵比这儿的东西。','这儿的东西比不贵我们那儿。'],0],
+      ['这种啤酒　青岛啤酒　好喝　没有',['青岛啤酒这种没有啤酒好喝。','这种啤酒好喝没有青岛啤酒。','这种啤酒没有青岛啤酒好喝。'],2],
+      ['这辆汽车　新　那辆　比',['那辆比新这辆汽车。','这辆汽车比那辆新。','这辆汽车新比那辆。'],1]
     ];
-    const vocab=[['我明天就回国了，今天来向大家____。',['告别','出现','忘记'],0],['我想向服务台____一下列车晚点的____。',['打听／消息','消息／打听','照顾／同事'],0],['车站工作人员要主动____有需要的旅客。',['照顾','忘记','告别'],0],['列车____到站，旅客正在下车。',['刚刚','有时','并'],0]];
-    const reading=[['作者认为一生中什么最难忘？',['小时候遇到过的人和事','最近几年的事','老同事的名字'],0],['最近经常出现在“我”梦里的是谁？',['妈妈','司苔拉','老同事'],1],['司苔拉和“我”是什么关系？',['邻居和童年朋友','同事','老师和学生'],0],['课文结尾哪个信息最能表现“我”的思念？',['询问她是否还活着、到哪里打听消息','说她不是中国人','只说她比“我”高'],0]];
-    const grammar=[['选择正确的比较句。',['A站比B站很大','A站比B站大','A站很比B站大'],1],['A线35分钟，B线42分钟。',['A线比B线快7分钟','A线比B线7分钟快','B线比A线快7分钟'],0],['B站换乘路线更复杂，怎样说更合适？',['B站没有A站方便','A站没有B站方便','B站比A站很方便'],0]];
+    const reviewDialogue=[
+      ['这件衣服150元，那件衣服152元。A：那件衣服比这件衣服贵吗？',['那件衣服没有这件衣服贵。','那件衣服比这件衣服贵多了。','那件衣服比这件衣服贵一点儿。'],2],
+      ['城市A离这里900多公里，城市B离这里890多公里。A：城市B比城市A远吗？',['城市B不比城市A远。','城市B比城市A远一点儿。','城市A没有城市B远。'],0],
+      ['今年的新生3000人，去年的新生3100人。选择合适的问句。',['今年的新生没有去年的多。','今年的新生比去年的少吗？','去年的新生比今年的少吗？'],1],
+      ['这种水果好吃，那种水果不好吃。A：那种水果比这种好吃吗？',['这种水果不比那种好吃。','那种水果比这种好吃一点儿。','那种水果没有这种好吃。'],2]
+    ];
+    const reviewLanguage=[
+      ['“那段____很难忘，我一想起来就会笑。”',['消息','往事','年龄'],1],
+      ['想知道多年不见的朋友在哪里，最合适的说法是：',['照顾朋友','向朋友告别','打听朋友的消息'],2],
+      ['“她昨天又____我的梦里。”',['出现在','打听了','告别了'],0],
+      ['A车厢比B车厢安静一点儿，意思是：',['A车厢比B车厢安静很多','A车厢稍微更安静','B车厢没有声音'],1],
+      ['“B站不比A站远”的意思最接近：',['B站一定比A站远','B站和A站完全一样远','B站没有A站远，或者两站差不多远'],2]
+    ];
+    const pre=[
+      ['“难忘”最接近哪个意思？',['刚刚知道','很难忘记','不想打听'],1],['“打听消息”是什么意思？',['跟别人告别','把事情忘记','向别人询问情况'],2],['短文中，司苔拉和“我”最可能是什么关系？',['童年的邻居和朋友','现在的同事','老师和学生'],0],['妈妈为什么请司苔拉领“我”上学？',['“我”不会说广东话','“我”年龄小，一个人过马路不安全','司苔拉是老师'],1],['A线35分钟，B线42分钟。选择正确句子。',['A线比B线7分钟快','B线比A线快7分钟','A线比B线快7分钟'],2],['节假日的车站比平时还忙。哪句结构正确？',['高峰期比平峰期更忙','高峰期更比平峰期忙','高峰期比平峰期忙更'],0]
+    ];
+    const vocab=[['我明天就回国了，今天来向大家____。',['出现','忘记','告别'],2],['我想向服务台____一下列车晚点的____。',['打听／消息','消息／打听','照顾／同事'],0],['车站工作人员要主动____有需要的旅客。',['忘记','照顾','告别'],1],['列车____到站，旅客正在下车。',['有时','并','刚刚'],2]];
+    const reading=[['作者认为一生中什么最难忘？',['小时候遇到过的人和事','最近几年的事','老同事的名字'],0],['最近经常出现在“我”梦里的是谁？',['妈妈','老同事','司苔拉'],2],['司苔拉和“我”是什么关系？',['同事','邻居和童年朋友','老师和学生'],1],['课文结尾哪个信息最能表现“我”的思念？',['询问她是否还活着、到哪里打听消息','说她不是中国人','只说她比“我”高'],0]];
+    const grammar=[['选择正确的比较句。',['A站比B站很大','A站比B站大','A站很比B站大'],1],['A线35分钟，B线42分钟。',['A线比B线7分钟快','B线比A线快7分钟','A线比B线快7分钟'],2],['B站换乘路线更复杂，怎样说更合适？',['B站没有A站方便','A站没有B站方便','B站比A站很方便'],0]];
     const orders=[['这辆汽车更新。',['那辆 比 这辆汽车 新','这辆汽车 比 那辆 新','比 那辆 这辆汽车 新'],1],['A线35分钟，B线42分钟。',['A线 比 B线 快 7分钟','B线 比 A线 快 7分钟','A线 7分钟 比 B线 快'],0]];
     const ratingLabels=['听懂课文录音','用汉语口头表达','读懂课文与题目','写出连贯的短文','完成专业汉语任务'];
     const API_URL='https://cloudbase-d3gxxe4l88c3d5907-1431364187.ap-shanghai.app.tcloudbase.com/ecrl/lesson8';
-    const views=['loginView','homeView','preView','postView','doneView']; let current=null; let lastRecord=null;
-    const byId=id=>document.getElementById(id); const show=id=>{views.forEach(v=>byId(v).classList.toggle('hidden',v!==id));scrollTo({top:0,behavior:'smooth'})};
-    function questions(target,list,prefix){byId(target).innerHTML=list.map((q,i)=>`<fieldset class="q"><legend class="q-title">${i+1}. ${q[0]}</legend>${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="${prefix}${i}" value="${j}" required>${o}</label>`).join('')}</fieldset>`).join('')}
-    function ratings(target,prefix){byId(target).innerHTML=ratingLabels.map((x,i)=>`<div class="rating"><label for="${prefix}${i}">${x}</label><select class="field" id="${prefix}${i}" name="${prefix}${i}" required><option value="">请选择1至5</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></div>`).join('')}
-    function checks(target,name,items){byId(target).innerHTML=items.map(x=>`<label class="check"><input type="checkbox" name="${name}" value="${x}">${x}</label>`).join('')}
-    function score(form,list,prefix,points){let s=0;list.forEach((q,i)=>{if(Number(form.elements[prefix+i].value)===q[2])s+=points});return s}
-    function save(stage,data){const key=`ecrl_${current[0]}`;const old=JSON.parse(localStorage.getItem(key)||'{}');const next={...old,student:{code:current[0]},[stage]:data};localStorage.setItem(key,JSON.stringify(next));lastRecord=next;return next}
-    function updateHome(){const rec=JSON.parse(localStorage.getItem(`ecrl_${current[0]}`)||'{}');byId('statusText').textContent=`课前：${rec.pre?'已完成':'未完成'}　课后：${rec.post?'已完成':'未完成'}`;byId('openPost').disabled=!rec.pre}
-    function downloadRecord(record){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));a.download=`${record.student.code}-第8课学习记录.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-    async function uploadRecord(record){byId('uploadState').className='upload-state';byId('uploadState').textContent='正在把学习记录上传给老师……';byId('retryUpload').classList.add('hidden');try{const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'submit',code:current[0],password:current[1],record})});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||'上传失败');byId('uploadState').className='upload-state';byId('uploadState').textContent='✓ 已成功上传给老师，教师端现在可以看到本次记录。';return true}catch(error){byId('uploadState').className='upload-state bad';byId('uploadState').textContent=`上传暂未成功：${error.message}。记录已保存在本机，请点击“重新上传给老师”。`;byId('retryUpload').classList.remove('hidden');return false}}
-    async function login(code,password){const c=code.trim().toUpperCase(),p=password.trim().toUpperCase();const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',code:c,password:p})});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||'登录失败');return[c,p]}
-    byId('loginForm').addEventListener('submit',async e=>{e.preventDefault();const button=e.currentTarget.querySelector('[type=submit]');button.disabled=true;byId('loginError').textContent='正在验证账号……';try{current=await login(byId('code').value,byId('name').value);sessionStorage.setItem('ecrl_current',JSON.stringify(current));byId('hello').textContent='同学，你好';byId('studentCode').textContent=current[0];byId('preStudent').textContent=current[0];byId('postStudent').textContent=current[0];byId('loginError').textContent='';updateHome();show('homeView')}catch(error){byId('loginError').textContent=error.message||'账号或密码不正确，请查看老师发的名单。'}finally{button.disabled=false}});
-    byId('logoutBtn').onclick=()=>{sessionStorage.removeItem('ecrl_current');current=null;show('loginView')};byId('openPre').onclick=()=>show('preView');byId('openPost').onclick=()=>show('postView');document.querySelectorAll('.back').forEach(b=>b.onclick=()=>{updateHome();show('homeView')});byId('doneHome').onclick=()=>{updateHome();show('homeView')};
-    byId('downloadExisting').onclick=()=>{const rec=JSON.parse(localStorage.getItem(`ecrl_${current[0]}`)||'null');if(!rec||(!rec.pre&&!rec.post)){byId('downloadHint').textContent='当前浏览器里还没有学习记录，请先完成任务。';return}downloadRecord(rec);byId('downloadHint').textContent='学习记录已下载；仅在自动上传失败时，把该文件交给老师作为备份。'};
-    byId('preView').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget;const button=f.querySelector('[type=submit]');button.disabled=true;const data={submittedAt:new Date().toISOString(),hsk:f.hsk.value,years:f.years.value,goals:[...f.querySelectorAll('[name=goals]:checked')].map(x=>x.value),supports:[...f.querySelectorAll('[name=supports]:checked')].map(x=>x.value),memorable:f.memorable.value,quizScore:score(f,pre,'preq',10),ratings:ratingLabels.map((_,i)=>Number(f.elements['pr'+i].value))};lastRecord=save('pre',data);byId('doneTitle').textContent='课前任务已完成';byId('doneText').textContent='系统正在提交记录，完成后请停在这里等老师上课。';byId('scoreBox').innerHTML=`<div><strong>${data.quizScore}</strong>小测分数</div>`;show('doneView');await uploadRecord(lastRecord);button.disabled=false});
-    byId('postView').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget;const button=f.querySelector('[type=submit]');button.disabled=true;const data={submittedAt:new Date().toISOString(),vocabulary:score(f,vocab,'vq',5),reading:score(f,reading,'rq',8),grammar:score(f,grammar,'gq',8),ordering:score(f,orders,'oq',12),oldDream:f.oldDream.value,rail:f.rail.value,ratings:ratingLabels.map((_,i)=>Number(f.elements['por'+i].value))};lastRecord=save('post',data);byId('doneTitle').textContent='课后任务已完成';byId('doneText').textContent='系统正在把本次学习成果提交给老师。';byId('scoreBox').innerHTML=`<div><strong>${data.vocabulary}</strong>词汇</div><div><strong>${data.reading}</strong>阅读</div><div><strong>${data.grammar}</strong>语法</div><div><strong>${data.ordering}</strong>排序</div>`;show('doneView');await uploadRecord(lastRecord);button.disabled=false});
-    byId('retryUpload').onclick=()=>{if(lastRecord)uploadRecord(lastRecord)};
-    byId('downloadBtn').onclick=()=>{if(!lastRecord)lastRecord=JSON.parse(localStorage.getItem(`ecrl_${current[0]}`)||'null');if(lastRecord)downloadRecord(lastRecord)};
-    questions('preQuestions',pre,'preq');questions('vocabQuestions',vocab,'vq');questions('readingQuestions',reading,'rq');questions('grammarQuestions',grammar,'gq');questions('orderQuestions',orders,'oq');ratings('preRatings','pr');ratings('postRatings','por');checks('goals','goals',['听懂课文录音','记住新词','读懂长句','说完整句子','写短文','使用专业汉语']);checks('supports','supports',['图片帮助理解','拼音或声调提示','重复听录音','句型框架','同伴讨论','老师个别纠音']);
-    try{const s=JSON.parse(sessionStorage.getItem('ecrl_current')||'null');if(s){current=s;byId('hello').textContent='同学，你好';byId('studentCode').textContent=s[0];byId('preStudent').textContent=s[0];byId('postStudent').textContent=s[0];updateHome();show('homeView')}}catch{}
+    const views=['joinView','homeView','reviewView','preView','postView','doneView'];let current=null,lastRecord=null;
+    const byId=id=>document.getElementById(id);const show=id=>{views.forEach(view=>byId(view).classList.toggle('hidden',view!==id));scrollTo({top:0,behavior:'smooth'})};
+    function questions(target,list,prefix){byId(target).innerHTML=list.map((q,i)=>`<fieldset class="q"><legend class="q-title">${i+1}. ${q[0]}</legend>${q[1].map((option,j)=>`<label class="opt"><input type="radio" name="${prefix}${i}" value="${j}" required><span class="letter">${String.fromCharCode(65+j)}</span><span>${option}</span></label>`).join('')}</fieldset>`).join('')}
+    function ratings(target,prefix){byId(target).innerHTML=ratingLabels.map((label,i)=>`<div class="rating"><label for="${prefix}${i}">${label}</label><select class="field" id="${prefix}${i}" name="${prefix}${i}" required><option value="">请选择1至5</option>${[1,2,3,4,5].map(n=>`<option>${n}</option>`).join('')}</select></div>`).join('')}
+    function checks(target,name,items){byId(target).innerHTML=items.map(item=>`<label class="check"><input type="checkbox" name="${name}" value="${item}">${item}</label>`).join('')}
+    function score(form,list,prefix,points){return list.reduce((total,q,i)=>total+(Number(form.elements[prefix+i].value)===q[2]?points:0),0)}
+    function answers(form,list,prefix){return list.map((_,i)=>Number(form.elements[prefix+i].value))}
+    function recordKey(){return `ecrl_${current.studentCode}`}
+    function identityText(){return `${current.name} · 学号 ${current.studentNumber}`}
+    function save(stage,data){const old=JSON.parse(localStorage.getItem(recordKey())||'{}');const next={...old,student:{code:current.studentCode,name:current.name,studentNumber:current.studentNumber},[stage]:data};localStorage.setItem(recordKey(),JSON.stringify(next));lastRecord=next;return next}
+    function updateHome(){const rec=JSON.parse(localStorage.getItem(recordKey())||'{}');byId('statusText').textContent=`完成情况　回顾测试：${rec.review?'已完成':'未完成'}　｜　课前画像：${rec.pre?'已完成':'未完成'}　｜　课后任务：${rec.post?'已完成':'未完成'}`}
+    function setIdentity(){byId('hello').textContent=`${current.name}，你好`;byId('studentIdentity').textContent=`学号 ${current.studentNumber}`;['reviewStudent','preStudent','postStudent'].forEach(id=>byId(id).textContent=identityText())}
+    function downloadRecord(record){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));a.download=`${record.student.studentNumber||record.student.code}-第8课学习记录.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+    async function request(body){const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||'网络请求失败');return result}
+    async function join(name,studentNumber){const result=await request({action:'join',name:name.trim(),studentNumber:studentNumber.trim()});return result.participant}
+    async function uploadRecord(record){byId('uploadState').className='upload-state';byId('uploadState').textContent='正在把学习记录上传给老师……';byId('retryUpload').classList.add('hidden');try{const result=await request({action:'submit',name:current.submittedName||current.name,studentNumber:current.studentNumber,record});if(result.participant){current={...current,...result.participant};sessionStorage.setItem('ecrl_current_participant',JSON.stringify(current));setIdentity()}if(result.review&&lastRecord?.review){lastRecord.review.scores=result.review.scores;lastRecord.review.total=result.review.total;localStorage.setItem(recordKey(),JSON.stringify(lastRecord))}byId('uploadState').className='upload-state';byId('uploadState').textContent='✓ 已成功上传，老师刷新教师工具台后即可看到，学习画像也会同步更新。';return true}catch(error){byId('uploadState').className='upload-state bad';byId('uploadState').textContent=`上传暂未成功：${error.message}。记录已保存在本机，请点击“重新上传给老师”。`;byId('retryUpload').classList.remove('hidden');return false}}
+    byId('joinForm').addEventListener('submit',async event=>{event.preventDefault();const button=event.currentTarget.querySelector('[type=submit]');button.disabled=true;byId('joinError').textContent='正在进入学习任务……';try{current=await join(byId('participantName').value,byId('studentNumber').value);sessionStorage.setItem('ecrl_current_participant',JSON.stringify(current));setIdentity();updateHome();byId('joinError').textContent='';show('homeView')}catch(error){byId('joinError').textContent=error.message||'暂时无法进入，请检查姓名、学号和网络。'}finally{button.disabled=false}});
+    byId('switchBtn').onclick=()=>{sessionStorage.removeItem('ecrl_current_participant');current=null;show('joinView')};
+    byId('openReview').onclick=()=>show('reviewView');byId('openPre').onclick=()=>show('preView');byId('openPost').onclick=()=>show('postView');document.querySelectorAll('.back').forEach(button=>button.onclick=()=>{updateHome();show('homeView')});byId('doneHome').onclick=()=>{updateHome();show('homeView')};
+    byId('downloadExisting').onclick=()=>{const rec=JSON.parse(localStorage.getItem(recordKey())||'null');if(!rec||(!rec.review&&!rec.pre&&!rec.post)){byId('downloadHint').textContent='当前浏览器里还没有学习记录，请先完成任务。';return}downloadRecord(rec);byId('downloadHint').textContent='学习记录已下载；只在自动上传失败时把文件交给老师作为备份。'};
+    byId('reviewWriting').addEventListener('input',event=>{byId('reviewCounter').textContent=`${event.target.value.replace(/\s/g,'').length} / 建议70字`});
+    byId('reviewView').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('[type=submit]');button.disabled=true;const data={submittedAt:new Date().toISOString(),answers:{reorder:answers(form,reviewReorder,'rr'),dialogue:answers(form,reviewDialogue,'rd'),language:answers(form,reviewLanguage,'rl')},scores:{reorder:score(form,reviewReorder,'rr',6),dialogue:score(form,reviewDialogue,'rd',10),language:score(form,reviewLanguage,'rl',6)},writing:form.reviewWriting.value,confidence:Number(form.reviewConfidence.value)};data.total=data.scores.reorder+data.scores.dialogue+data.scores.language;lastRecord=save('review',data);byId('doneTitle').textContent='回顾测试已完成';byId('doneText').textContent='系统正在上传作答并同步你的学习画像。';byId('scoreBox').innerHTML=`<div><strong>${data.total}</strong>客观题总分</div><div><strong>${data.scores.reorder}</strong>句子排序</div><div><strong>${data.scores.dialogue}</strong>完成对话</div><div><strong>${data.scores.language}</strong>新词语法</div>`;show('doneView');await uploadRecord(lastRecord);button.disabled=false});
+    byId('preView').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('[type=submit]');button.disabled=true;const data={submittedAt:new Date().toISOString(),hsk:form.hsk.value,years:form.years.value,goals:[...form.querySelectorAll('[name=goals]:checked')].map(item=>item.value),supports:[...form.querySelectorAll('[name=supports]:checked')].map(item=>item.value),memorable:form.memorable.value,quizScore:score(form,pre,'preq',10),ratings:ratingLabels.map((_,i)=>Number(form.elements['pr'+i].value))};lastRecord=save('pre',data);byId('doneTitle').textContent='课前任务已完成';byId('doneText').textContent='系统正在提交记录，完成后请停在这里等老师上课。';byId('scoreBox').innerHTML=`<div><strong>${data.quizScore}</strong>小测分数</div>`;show('doneView');await uploadRecord(lastRecord);button.disabled=false});
+    byId('postView').addEventListener('submit',async event=>{event.preventDefault();const form=event.currentTarget,button=form.querySelector('[type=submit]');button.disabled=true;const data={submittedAt:new Date().toISOString(),vocabulary:score(form,vocab,'vq',5),reading:score(form,reading,'rq',8),grammar:score(form,grammar,'gq',8),ordering:score(form,orders,'oq',12),oldDream:form.oldDream.value,rail:form.rail.value,ratings:ratingLabels.map((_,i)=>Number(form.elements['por'+i].value))};lastRecord=save('post',data);byId('doneTitle').textContent='课后任务已完成';byId('doneText').textContent='系统正在把本次学习成果提交给老师。';byId('scoreBox').innerHTML=`<div><strong>${data.vocabulary}</strong>词汇</div><div><strong>${data.reading}</strong>阅读</div><div><strong>${data.grammar}</strong>语法</div><div><strong>${data.ordering}</strong>排序</div>`;show('doneView');await uploadRecord(lastRecord);button.disabled=false});
+    byId('retryUpload').onclick=()=>{if(lastRecord)uploadRecord(lastRecord)};byId('downloadBtn').onclick=()=>{if(!lastRecord)lastRecord=JSON.parse(localStorage.getItem(recordKey())||'null');if(lastRecord)downloadRecord(lastRecord)};
+    questions('reviewReorder',reviewReorder,'rr');questions('reviewDialogue',reviewDialogue,'rd');questions('reviewLanguage',reviewLanguage,'rl');questions('preQuestions',pre,'preq');questions('vocabQuestions',vocab,'vq');questions('readingQuestions',reading,'rq');questions('grammarQuestions',grammar,'gq');questions('orderQuestions',orders,'oq');ratings('preRatings','pr');ratings('postRatings','por');checks('goals','goals',['听懂课文录音','记住新词','读懂长句','说得更流利','写得更完整','学习高铁服务汉语']);checks('supports','supports',['图片和关键词','分段重听','句子排序','例句或句框','同伴讨论','老师个别反馈']);
+    try{const saved=JSON.parse(sessionStorage.getItem('ecrl_current_participant')||'null');if(saved?.studentCode&&saved?.studentNumber){current=saved;setIdentity();updateHome();show('homeView')}}catch{}
   </script>
 </body>
 </html>
