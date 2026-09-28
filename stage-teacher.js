@@ -2,7 +2,8 @@
 
 (() => {
   const API_URL = 'https://cloudbase-d3gxxe4l88c3d5907-1431364187.ap-shanghai.app.tcloudbase.com/ecrl/lesson8';
-  const LESSONS = { '8': '旧梦', '9': '爱的教育', '10': '快乐其实很简单' };
+  const LESSONS = { '8': '旧梦', '9': '爱的教育', '10': '快乐其实很简单', '11': '书本里的蚂蚁', '12': '是“枕头”，不是“针头”' };
+  const LESSON_IDS = Object.keys(LESSONS);
   const DIMENSIONS = { vocabulary: '词语', grammar: '语法', reading: '阅读' };
   const state = { password: '', records: [], groups: [], epoch: 0, activeStudent: '', activeDocument: '', saving: false, loading: false };
   const requests = new Set();
@@ -18,6 +19,9 @@
   const displayDate = value => Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString('zh-CN', { hour12: false }) : '时间未记录';
   const className = record => String(record.student?.className || '未填写班级');
   const sourceText = source => typeof source === 'string' ? source : Array.isArray(source) ? source.map(sourceText).join('；') : source && typeof source === 'object' ? [source.book, source.page, source.exercise, source.note].filter(Boolean).join(' · ') : '';
+
+  byId('lessonFilter').replaceChildren(new Option('全部课次', ''), ...LESSON_IDS.map(id => new Option(`第${id}课 · ${LESSONS[id]}`, id)));
+  byId('studentHeaders').innerHTML = `<th scope="col">学生 / 学号</th><th scope="col">班级</th>${LESSON_IDS.map(id => `<th scope="col" class="lesson-column">第${id}课 · ${esc(LESSONS[id])}</th>`).join('')}<th scope="col">查看与批改</th>`;
 
   function setMessage(id, message, type = '') {
     const target = byId(id);
@@ -157,7 +161,7 @@
       const versions = [...new Set(row.records.map(record => String(record.version || '未记录')))];
       return `<tr><td>${esc(row.className)}</td><td>${esc(lessonName(row.records[0]))}</td><td>${row.records.length}</td><td><strong>${mean}</strong></td><td>${row.records.filter(record => !isGraded(record)).length}</td><td>${esc(versions.join('、'))}${versions.length > 1 ? '<div class="small muted">含不同版本，请分别核对试题</div>' : ''}</td></tr>`;
     }).join('') || '<tr><td colspan="6" class="empty">当前没有符合筛选条件的提交。</td></tr>';
-    byId('studentRows').innerHTML = groups.map((group, index) => `<tr><td><div class="student-name">${esc(group.identity.name || '未填写姓名')}</div><div class="student-number">${esc(group.identity.studentNumber || '未填写学号')}</div></td><td>${esc(group.className)}</td>${['8', '9', '10'].map(id => `<td>${scoreCell(group.latest.get(id))}</td>`).join('')}<td><button class="button secondary view-button" type="button" data-student-index="${index}">查看 / 批改</button></td></tr>`).join('') || '<tr><td colspan="6" class="empty">尚无学生记录，或没有匹配的学生。</td></tr>';
+    byId('studentRows').innerHTML = groups.map((group, index) => `<tr><td><div class="student-name">${esc(group.identity.name || '未填写姓名')}</div><div class="student-number">${esc(group.identity.studentNumber || '未填写学号')}</div></td><td>${esc(group.className)}</td>${LESSON_IDS.map(id => `<td>${scoreCell(group.latest.get(id))}</td>`).join('')}<td><button class="button secondary view-button" type="button" data-student-index="${index}">查看 / 批改</button></td></tr>`).join('') || `<tr><td colspan="${LESSON_IDS.length + 3}" class="empty">尚无学生记录，或没有匹配的学生。</td></tr>`;
     byId('studentRows').querySelectorAll('[data-student-index]').forEach(button => button.addEventListener('click', () => openStudent(groups[Number(button.dataset.studentIndex)])));
   }
 

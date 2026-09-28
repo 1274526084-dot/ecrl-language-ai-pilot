@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <title>阶段测试 · 教师工作台</title>
-  <link rel="stylesheet" href="stage-teacher.css">
-  <script src="stage-teacher.js" defer></script>
+  <link rel="stylesheet" href="stage-teacher.css?v=20260928b">
+  <script src="stage-teacher.js?v=20260928b" defer></script>
 </head>
 <body>
   <section id="loginView" class="login-wrap">
     <div class="login-card">
       <div class="brand-mark" aria-hidden="true">教</div>
-      <p class="eyebrow">《实用汉语5》 · 第8—10课</p>
+      <p class="eyebrow">《实用汉语5》 · 第8—12课</p>
       <h1>阶段测试教师工作台</h1>
       <p class="muted">查看班级成绩、比较同课重做记录，并批改短表达。</p>
       <form id="loginForm">
@@ -44,7 +44,7 @@
         <div class="filters">
           <div class="filter search-filter"><label for="searchInput">查询学生</label><input id="searchInput" type="search" placeholder="班级、姓名或学号" autocomplete="off"></div>
           <div class="filter"><label for="classFilter">班级</label><select id="classFilter"><option value="">全部班级</option></select></div>
-          <div class="filter"><label for="lessonFilter">课次</label><select id="lessonFilter"><option value="">全部课次</option><option value="8">第8课 · 旧梦</option><option value="9">第9课 · 爱的教育</option><option value="10">第10课 · 快乐其实很简单</option></select></div>
+          <div class="filter"><label for="lessonFilter">课次</label><select id="lessonFilter"><option value="">全部课次</option></select></div>
           <button id="clearFilters" class="button quiet" type="button">清除筛选</button>
         </div>
         <div class="export-row"><span id="filterSummary" class="small muted"></span><div class="actions"><label class="sr-only" for="exportScope">导出范围</label><select id="exportScope"><option value="latest">仅每人每课最新提交</option><option value="all">全部历次提交</option></select><button id="exportButton" class="button secondary" type="button">导出筛选结果 CSV</button></div></div>
@@ -64,9 +64,9 @@
       </section>
 
       <section class="card">
-        <div class="section-heading"><div><p class="eyebrow">学生记录</p><h2>三课成绩，一行查看</h2></div><span id="rowCount" class="pill"></span></div>
-        <p class="small muted">各课显示最新客观分和批改状态。选定课次会筛出已交该课的学生，仍展示这些学生的三课对照。各课试题不同，跨课分数变化不直接代表学习进步。</p>
-        <div class="table-wrap"><table class="student-table"><caption class="sr-only">每位学生第8、9、10课最新成绩</caption><thead><tr><th scope="col">学生 / 学号</th><th scope="col">班级</th><th scope="col">第8课 · 旧梦</th><th scope="col">第9课 · 爱的教育</th><th scope="col">第10课 · 快乐其实很简单</th><th scope="col">查看与批改</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+        <div class="section-heading"><div><p class="eyebrow">学生记录</p><h2>五课成绩，一行查看</h2></div><span id="rowCount" class="pill"></span></div>
+        <p class="small muted">各课显示最新客观分和批改状态。选定课次会筛出已交该课的学生，仍展示这些学生的五课对照。各课试题不同，跨课分数变化不直接代表学习进步。</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="学生五课成绩，可左右滚动"><table class="student-table"><caption class="sr-only">每位学生第8—12课最新成绩</caption><thead><tr id="studentHeaders"></tr></thead><tbody id="studentRows"></tbody></table></div>
       </section>
       <p class="footer-note">数据从云端读取；本页仅在当前页面内存中保留本次查看结果。学生端不能查询其他学生的记录。</p>
     </main>
