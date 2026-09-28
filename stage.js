@@ -6,7 +6,7 @@
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const names={vocabulary:'词语',grammar:'语言点',reading:'阅读理解'};
-  const lessonPoints={'8':'人物、往事与比较句','9':'让／叫、表达心情与比较','10':'快乐的原因与逐渐变化','11':'故事变化与疑问词用法','12':'语言误会、把字句与反问'};
+  const lessonPoints={'8':'人物、往事与比较句','9':'让／叫、表达心情与比较','10':'快乐的原因与逐渐变化','11':'故事变化与疑问词用法','12':'语言误会、把字句与反问','13':'生活变化与除了／由于','14':'打的经历与被字句'};
   let data={student:null,drafts:{},receipts:{}},bank=null,lesson=null,draft=null,current=0,pending=null,receipt=null,busy=false,clock,view='home';
   const object=value=>!!value&&typeof value==='object'&&!Array.isArray(value);
   const validStudent=s=>object(s)&&['name','studentNumber','className'].every(k=>typeof s[k]==='string'&&s[k].trim()&&[...s[k]].length<=80&&!/[\p{Cc}\p{Cf}]/u.test(s[k]));

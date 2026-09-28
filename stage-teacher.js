@@ -2,7 +2,7 @@
 
 (() => {
   const API_URL = 'https://cloudbase-d3gxxe4l88c3d5907-1431364187.ap-shanghai.app.tcloudbase.com/ecrl/lesson8';
-  const LESSONS = { '8': '旧梦', '9': '爱的教育', '10': '快乐其实很简单', '11': '书本里的蚂蚁', '12': '是“枕头”，不是“针头”' };
+  const LESSONS = { '8': '旧梦', '9': '爱的教育', '10': '快乐其实很简单', '11': '书本里的蚂蚁', '12': '是“枕头”，不是“针头”', '13': '中国来信改变了我的生活', '14': '第一次打的' };
   const LESSON_IDS = Object.keys(LESSONS);
   const DIMENSIONS = { vocabulary: '词语', grammar: '语法', reading: '阅读' };
   const state = { password: '', records: [], groups: [], epoch: 0, activeStudent: '', activeDocument: '', saving: false, loading: false };
