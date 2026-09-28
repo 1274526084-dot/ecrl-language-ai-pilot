@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>阶段测试 · 教师工作台</title>
+  <link rel="stylesheet" href="stage-teacher.css">
+  <script src="stage-teacher.js" defer></script>
+</head>
+<body>
+  <section id="loginView" class="login-wrap">
+    <div class="login-card">
+      <div class="brand-mark" aria-hidden="true">教</div>
+      <p class="eyebrow">《实用汉语5》 · 第8—10课</p>
+      <h1>阶段测试教师工作台</h1>
+      <p class="muted">查看班级成绩、比较同课重做记录，并批改短表达。</p>
+      <form id="loginForm">
+        <label for="teacherPassword">教师密码</label>
+        <input id="teacherPassword" type="password" autocomplete="current-password" required maxlength="200" aria-describedby="loginNote">
+        <p id="loginNote" class="small muted">使用原教师端密码。本页不在浏览器中保存密码或学生数据，关闭或刷新后需要重新登录。</p>
+        <button id="loginButton" class="button primary full-width" type="submit">进入工作台</button>
+        <button id="cancelLoad" class="button quiet full-width" type="button" hidden>取消读取</button>
+        <p id="loginMessage" class="message" role="status" aria-live="polite"></p>
+      </form>
+      <div class="login-links"><a href="teacher.html">打开原教师工具台</a><a href="stage.html">学生阶段测试</a></div>
+    </div>
+  </section>
+
+  <div id="appView" hidden>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div><p class="eyebrow">《实用汉语5》</p><h1>阶段测试教师工作台</h1></div>
+        <div class="actions"><a class="button quiet" href="teacher.html">原教师工具台</a><button id="refreshButton" class="button secondary" type="button">刷新数据</button><button id="logoutButton" class="button quiet" type="button">退出</button></div>
+      </div>
+    </header>
+    <main class="shell">
+      <section class="notice" aria-label="记录说明">
+        <p><strong>班级、姓名和学号由学生自行填写，属于身份自报，不能视为身份认证。</strong>发现错填或同名记录时，请先核对学生本人。</p>
+        <p id="syncMessage" class="small muted" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card filter-card" aria-label="查询与导出">
+        <div class="filters">
+          <div class="filter search-filter"><label for="searchInput">查询学生</label><input id="searchInput" type="search" placeholder="班级、姓名或学号" autocomplete="off"></div>
+          <div class="filter"><label for="classFilter">班级</label><select id="classFilter"><option value="">全部班级</option></select></div>
+          <div class="filter"><label for="lessonFilter">课次</label><select id="lessonFilter"><option value="">全部课次</option><option value="8">第8课 · 旧梦</option><option value="9">第9课 · 爱的教育</option><option value="10">第10课 · 快乐其实很简单</option></select></div>
+          <button id="clearFilters" class="button quiet" type="button">清除筛选</button>
+        </div>
+        <div class="export-row"><span id="filterSummary" class="small muted"></span><div class="actions"><label class="sr-only" for="exportScope">导出范围</label><select id="exportScope"><option value="latest">仅每人每课最新提交</option><option value="all">全部历次提交</option></select><button id="exportButton" class="button secondary" type="button">导出筛选结果 CSV</button></div></div>
+      </section>
+
+      <section class="metrics" aria-label="当前筛选统计">
+        <article class="metric"><span>已参与学生</span><strong id="studentCount">0</strong><small>当前筛选内去重人数</small></article>
+        <article class="metric"><span>每人每课最新提交</span><strong id="latestCount">0</strong><small>一位学生可有多课记录</small></article>
+        <article class="metric"><span>最新提交待批改</span><strong id="pendingCount">0</strong><small>短表达尚未评分</small></article>
+        <article class="metric"><span>历次提交</span><strong id="attemptCount">0</strong><small>含同课重做</small></article>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><div><p class="eyebrow">班级概览</p><h2>每一课，分别看</h2></div><span class="pill">客观题满分 80</span></div>
+        <p class="small muted">人数、平均分和待批改数均取该学生该课的最新提交。平均客观分包含待批改记录；混合卷版本会注明。</p>
+        <div class="table-wrap"><table class="summary-table"><caption class="sr-only">按班级与课次汇总的最新提交</caption><thead><tr><th scope="col">班级</th><th scope="col">课次</th><th scope="col">已交人数</th><th scope="col">平均客观分 / 80</th><th scope="col">待批改</th><th scope="col">试卷版本</th></tr></thead><tbody id="classSummaryRows"></tbody></table></div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading"><div><p class="eyebrow">学生记录</p><h2>三课成绩，一行查看</h2></div><span id="rowCount" class="pill"></span></div>
+        <p class="small muted">各课显示最新客观分和批改状态。选定课次会筛出已交该课的学生，仍展示这些学生的三课对照。各课试题不同，跨课分数变化不直接代表学习进步。</p>
+        <div class="table-wrap"><table class="student-table"><caption class="sr-only">每位学生第8、9、10课最新成绩</caption><thead><tr><th scope="col">学生 / 学号</th><th scope="col">班级</th><th scope="col">第8课 · 旧梦</th><th scope="col">第9课 · 爱的教育</th><th scope="col">第10课 · 快乐其实很简单</th><th scope="col">查看与批改</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+      </section>
+      <p class="footer-note">数据从云端读取；本页仅在当前页面内存中保留本次查看结果。学生端不能查询其他学生的记录。</p>
+    </main>
+  </div>
+
+  <dialog id="detailDialog" aria-labelledby="detailTitle">
+    <div class="dialog-header"><div><p class="eyebrow">历次作答与短表达</p><h2 id="detailTitle"></h2><p id="detailIdentity" class="small muted"></p></div><button id="closeDetail" class="close-button" aria-label="关闭学生详情" type="button">×</button></div>
+    <div class="dialog-body">
+      <section aria-labelledby="historyTitle"><h3 id="historyTitle">历次提交</h3><p class="small muted">点击一条记录查看。相同课次与相同版本的重做记录可对照客观分；以下按提交时间排序。</p><div id="attemptHistory" class="history-list"></div></section>
+      <div id="attemptDetail"></div>
+      <form id="gradeForm" class="grade-panel">
+        <div class="section-heading"><h3>短表达批改</h3><span class="pill">共 20 分</span></div>
+        <div class="grade-fields">
+          <div><label for="contentScore">内容 <span class="muted">/ 8</span></label><input id="contentScore" name="content" type="number" inputmode="numeric" min="0" max="8" step="1" required><p class="small muted">回应题目，信息完整。</p></div>
+          <div><label for="grammarScore">目标句型 <span class="muted">/ 8</span></label><input id="grammarScore" name="grammar" type="number" inputmode="numeric" min="0" max="8" step="1" required><p class="small muted">按要求使用本课词语或句型。</p></div>
+          <div><label for="expressionScore">表达 <span class="muted">/ 4</span></label><input id="expressionScore" name="expression" type="number" inputmode="numeric" min="0" max="4" step="1" required><p class="small muted">意思清楚，句子连贯。</p></div>
+        </div>
+        <label for="gradeFeedback">给学生的反馈</label><textarea id="gradeFeedback" rows="4" maxlength="2000" placeholder="指出一处做得好的地方，再给出一条可操作的建议。"></textarea>
+        <div class="grade-actions"><span id="gradeTotal" class="small muted">填写三个分项后显示短表达总分。</span><button id="saveGrade" class="button primary" type="submit">保存批改到云端</button></div>
+        <p id="gradeMessage" class="message" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer"><meta name="theme-color" content="#163d43">
+  <title>第8—10课阶段测验 · 实用汉语5</title>
+  <link rel="stylesheet" href="stage.css?v=20260928"><script src="stage.js?v=20260928" defer></script>
+</head>
+<body>
+  <header class="site-head"><div class="head-inner"><a class="brand" href="stage.html"><span class="brand-seal" aria-hidden="true">语</span><span>实用汉语 5<small>第8—10课 · 阶段测验</small></span></a><a class="quiet-link" href="stage-teacher.html">教师入口 ↗</a></div></header>
+  <main id="app" class="wrap">
+    <section id="home">
+      <div class="intro"><p class="eyebrow">每次一课 · 慢慢进步</p><h1>把学过的汉语，<br>变成自己的表达。</h1><p class="subtitle">每课10道选择题＋1段短表达，约10—15分钟。<br>根据课本练习改编，完成后提交给老师。</p></div>
+      <section class="card identity"><div><span class="step-label">01 / 填写学习信息</span><h2>不用注册账号</h2><p class="muted">每次填写相同的班级和学号，老师就能汇总你的记录。</p></div><form id="identityForm"><div class="fields"><label>姓名<input id="name" name="name" autocomplete="name" maxlength="80" required placeholder="你的姓名"></label><label>学号<input id="studentNumber" name="studentNumber" autocomplete="off" maxlength="80" required placeholder="学校学号"></label><label>班级<input id="className" name="className" autocomplete="off" maxlength="80" required placeholder="请按老师给出的班级名称填写"></label></div><p class="privacy">姓名、学号、班级和本次作答将上传至原腾讯云服务，仅供教师查看。请勿填写他人的信息；此入口不提供他人的成绩查询。</p><button class="primary" type="submit">确认信息，选择测验 <span aria-hidden="true">→</span></button><p id="identityError" class="error" role="alert"></p></form><div id="identitySummary" class="hidden"></div></section>
+      <div class="section-title"><div><span class="step-label">02 / 选择本次课次</span><h2>一次完成一份就好</h2></div><span class="pill">每课约 13 分钟</span></div>
+      <div id="loadState" class="notice" role="status">正在连接测验题库……</div><div id="lessonCards" class="lesson-grid"></div>
+      <div class="footer-links"><a href="index.html">之前的第8课学习任务 ↗</a><button id="clearDevice" class="text-button" type="button">清除本标签页的姓名与草稿</button></div>
+    </section>
+    <section id="quiz" class="hidden" aria-labelledby="quizTitle">
+      <div class="quiz-top"><button id="backHome" class="text-button" type="button">← 返回课次</button><span id="quizIdentity" class="muted"></span></div>
+      <div class="quiz-heading"><div><p id="quizLesson" class="eyebrow"></p><h1 id="quizTitle"></h1></div><div class="timebox"><span>已用时</span><strong id="elapsed">00:00</strong><small>不限时 · 建议10—15分钟</small></div></div>
+      <nav id="questionNav" class="question-nav" aria-label="选择题号"></nav>
+      <form id="questionForm" novalidate><div id="questionBody" class="card question-card"></div><div class="quiz-controls"><button id="prevQuestion" type="button" class="secondary">上一题</button><span id="completion" class="muted"></span><button id="nextQuestion" type="button" class="primary">下一题 →</button><button id="submitQuiz" type="submit" class="primary hidden">检查并提交</button></div><p id="quizError" class="error" role="alert"></p></form>
+      <p class="footnote">客观题80分自动批阅；短表达20分由老师批阅。不倒计时，到15分钟也不会强制交卷。</p>
+    </section>
+    <section id="result" class="hidden" aria-labelledby="resultTitle"><div class="card result-hero"><p id="resultBadge" class="eyebrow"></p><h1 id="resultTitle" tabindex="-1"></h1><p id="resultMessage"></p><div id="resultScore"></div><div class="actions"><button id="retryUpload" class="primary hidden" type="button">重新上传</button><button id="resultHome" class="secondary" type="button">返回课次</button><button id="downloadRecord" class="text-button" type="button">下载本次作答备份</button></div></div><div id="answerReview"></div></section>
+    <p id="storageWarning" class="error hidden" role="status">浏览器无法保存草稿。请保持本页打开，提交成功后再关闭。</p>
+  </main>
+  <footer class="site-footer">实用汉语5 · 每一次练习，都留下一点进步</footer>
+</body>
+</html>
