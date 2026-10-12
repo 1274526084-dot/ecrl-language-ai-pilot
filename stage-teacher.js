@@ -14,14 +14,17 @@
   const lessonName = record => `第${lessonId(record)}课 · ${record.lessonTitle || LESSONS[lessonId(record)] || '阶段测试'}`;
   const submittedTime = record => Number.isFinite(Date.parse(record.submittedAt)) ? Date.parse(record.submittedAt) : 0;
   const newestFirst = (left, right) => submittedTime(right) - submittedTime(left) || String(right.attemptId || right.documentId).localeCompare(String(left.attemptId || left.documentId));
-  const isGraded = record => record.gradingStatus === 'graded' && number(record.writingScore) !== null;
+  const isAuto = record => record.gradingStatus === 'auto_graded' && record.writingMax === 0;
+  const objectiveMax = record => number(record.objectiveMax) ?? (isAuto(record) ? 100 : 80);
+  const statusText = record => isAuto(record) ? '自动评分' : isGraded(record) ? '旧版已批改' : '旧版待批改';
+  const isGraded = record => isAuto(record) || (record.gradingStatus === 'graded' && number(record.writingScore) !== null);
   const textScore = (score, max) => number(score) === null ? '—' : `${score} / ${max}`;
   const displayDate = value => Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString('zh-CN', { hour12: false }) : '时间未记录';
   const className = record => String(record.student?.className || '未填写班级');
   const sourceText = source => typeof source === 'string' ? source : Array.isArray(source) ? source.map(sourceText).join('；') : source && typeof source === 'object' ? [source.book, source.page, source.exercise, source.note].filter(Boolean).join(' · ') : '';
 
   byId('lessonFilter').replaceChildren(new Option('全部课次', ''), ...LESSON_IDS.map(id => new Option(`第${id}课 · ${LESSONS[id]}`, id)));
-  byId('studentHeaders').innerHTML = `<th scope="col">学生 / 学号</th><th scope="col">班级</th>${LESSON_IDS.map(id => `<th scope="col" class="lesson-column">第${id}课 · ${esc(LESSONS[id])}</th>`).join('')}<th scope="col">查看与批改</th>`;
+  byId('studentHeaders').innerHTML = `<th scope="col">学生 / 学号</th><th scope="col">班级</th>${LESSON_IDS.map(id => `<th scope="col" class="lesson-column">第${id}课 · ${esc(LESSONS[id])}</th>`).join('')}<th scope="col">作答详情</th>`;
 
   function setMessage(id, message, type = '') {
     const target = byId(id);
@@ -134,7 +137,7 @@
   function scoreCell(record) {
     if (!record) return '<span class="muted small">尚未提交</span>';
     const objective = number(record.objectiveScore);
-    return `<div class="score-line"><strong>${objective === null ? '—' : objective}</strong><span>/ 80 客观题</span></div>${isGraded(record) ? `<div class="score-detail">短表达 ${esc(textScore(record.writingScore, 20))} · 总分 ${esc(textScore(record.totalScore, 100))}</div><span class="status graded">已批改</span>` : '<span class="status pending">短表达待批改</span>'}`;
+    return `<div class="score-line"><strong>${objective === null ? '—' : objective}</strong><span>/ ${objectiveMax(record)} ${isAuto(record)?'总分':'旧版客观题'}</span></div>${!isAuto(record)&&isGraded(record)?`<div class="score-detail">旧版短表达 ${esc(textScore(record.writingScore,20))} · 总分 ${esc(textScore(record.totalScore,100))}</div>`:''}<span class="status ${isGraded(record)?'graded':'pending'}">${statusText(record)}</span><div class="small muted">版本 ${esc(record.version||'未记录')}</div>`;
   }
 
   function renderDashboard() {
@@ -150,7 +153,7 @@
     byId('exportButton').disabled = all.length === 0;
     const summary = new Map();
     latest.forEach(record => {
-      const key = JSON.stringify([className(record), lessonId(record)]);
+      const key = JSON.stringify([className(record), lessonId(record), record.version, objectiveMax(record)]);
       if (!summary.has(key)) summary.set(key, { className: className(record), lessonId: lessonId(record), records: [] });
       summary.get(key).records.push(record);
     });
@@ -159,9 +162,9 @@
       const scores = row.records.map(record => number(record.objectiveScore)).filter(score => score !== null);
       const mean = scores.length ? (scores.reduce((sum, score) => sum + score, 0) / scores.length).toFixed(1) : '—';
       const versions = [...new Set(row.records.map(record => String(record.version || '未记录')))];
-      return `<tr><td>${esc(row.className)}</td><td>${esc(lessonName(row.records[0]))}</td><td>${row.records.length}</td><td><strong>${mean}</strong></td><td>${row.records.filter(record => !isGraded(record)).length}</td><td>${esc(versions.join('、'))}${versions.length > 1 ? '<div class="small muted">含不同版本，请分别核对试题</div>' : ''}</td></tr>`;
+      return `<tr><td>${esc(row.className)}</td><td>${esc(lessonName(row.records[0]))}</td><td>${row.records.length}</td><td><strong>${mean} / ${objectiveMax(row.records[0])}</strong></td><td>${row.records.filter(record => !isGraded(record)).length}</td><td>${esc(versions.join('、'))}${versions.length > 1 ? '<div class="small muted">含不同版本，请分别核对试题</div>' : ''}</td></tr>`;
     }).join('') || '<tr><td colspan="6" class="empty">当前没有符合筛选条件的提交。</td></tr>';
-    byId('studentRows').innerHTML = groups.map((group, index) => `<tr><td><div class="student-name">${esc(group.identity.name || '未填写姓名')}</div><div class="student-number">${esc(group.identity.studentNumber || '未填写学号')}</div></td><td>${esc(group.className)}</td>${LESSON_IDS.map(id => `<td>${scoreCell(group.latest.get(id))}</td>`).join('')}<td><button class="button secondary view-button" type="button" data-student-index="${index}">查看 / 批改</button></td></tr>`).join('') || `<tr><td colspan="${LESSON_IDS.length + 3}" class="empty">尚无学生记录，或没有匹配的学生。</td></tr>`;
+    byId('studentRows').innerHTML = groups.map((group, index) => `<tr><td><div class="student-name">${esc(group.identity.name || '未填写姓名')}</div><div class="student-number">${esc(group.identity.studentNumber || '未填写学号')}</div></td><td>${esc(group.className)}</td>${LESSON_IDS.map(id => `<td>${scoreCell(group.latest.get(id))}</td>`).join('')}<td><button class="button secondary view-button" type="button" data-student-index="${index}">查看作答</button></td></tr>`).join('') || `<tr><td colspan="${LESSON_IDS.length + 3}" class="empty">尚无学生记录，或没有匹配的学生。</td></tr>`;
     byId('studentRows').querySelectorAll('[data-student-index]').forEach(button => button.addEventListener('click', () => openStudent(groups[Number(button.dataset.studentIndex)])));
   }
 
@@ -230,7 +233,7 @@
   }
 
   function renderHistory(group) {
-    byId('attemptHistory').innerHTML = group.records.map((record, index) => `<button type="button" class="history-button${record.documentId === state.activeDocument ? ' active' : ''}" data-attempt-index="${index}" aria-pressed="${record.documentId === state.activeDocument}"><b>${esc(lessonName(record))}</b><span class="small">客观 ${esc(textScore(record.objectiveScore, 80))} · ${isGraded(record) ? '已批改' : '待批改'}</span><small>${esc(displayDate(record.submittedAt))}</small><small>版本 ${esc(record.version || '未记录')}${group.latest.get(lessonId(record))?.documentId === record.documentId ? ' · 本课最新' : ''}</small></button>`).join('');
+    byId('attemptHistory').innerHTML = group.records.map((record, index) => `<button type="button" class="history-button${record.documentId === state.activeDocument ? ' active' : ''}" data-attempt-index="${index}" aria-pressed="${record.documentId === state.activeDocument}"><b>${esc(lessonName(record))}</b><span class="small">客观 ${esc(textScore(record.objectiveScore, objectiveMax(record)))} · ${statusText(record)}</span><small>${esc(displayDate(record.submittedAt))}</small><small>版本 ${esc(record.version || '未记录')}${group.latest.get(lessonId(record))?.documentId === record.documentId ? ' · 本课最新' : ''}</small></button>`).join('');
     byId('attemptHistory').querySelectorAll('[data-attempt-index]').forEach(button => button.addEventListener('click', () => {
       if (state.saving) return;
       const record = group.records[Number(button.dataset.attemptIndex)];
@@ -264,9 +267,11 @@
       const options = Array.isArray(question.options) ? question.options : [];
       return `<article class="answer-card"><div class="answer-heading"><h4>${index + 1}. ${esc(question.prompt || question.id)}</h4><span class="answer-result${correct ? '' : ' wrong'}">${result ? correct ? '正确' : '错误' : '无评分记录'}${number(result?.points) === null ? '' : ` · ${result.points}分`}</span></div><ol class="answer-options" type="A">${options.map(option => `<li>${esc(option)}</li>`).join('')}</ol><p class="answer-info">学生选择：${esc(answerText(selected, options))}</p><p class="answer-info">参考答案：${esc(answerText(answer, options))}</p><p class="answer-explanation">${esc(result?.explanation || question.explanation || '')}</p>${question.source ? `<p class="source-note">来源：${esc(sourceText(question.source))}</p>` : ''}</article>`;
     }).join('');
+    const legacy = !isAuto(record);
+    byId('gradeForm').hidden = !legacy;
     const writing = typeof record.writing === 'string' ? record.writing : '';
     const passage = typeof snapshot.passage === 'string' ? snapshot.passage : snapshot.passage?.text;
-    byId('attemptDetail').innerHTML = `<section class="attempt-banner"><h3>${esc(lessonName(record))}</h3><div class="attempt-meta"><span>客观题 <strong>${esc(textScore(record.objectiveScore, 80))}</strong></span><span>短表达 <strong>${isGraded(record) ? esc(textScore(record.writingScore, 20)) : '待批改'}</strong></span><span>总分 <strong>${isGraded(record) ? esc(textScore(record.totalScore, 100)) : '待短表达评分'}</strong></span></div><div class="attempt-meta small muted"><span>${esc(displayDate(record.submittedAt))}</span><span>用时 ${esc(durationText(record.durationSeconds))}</span><span>版本 ${esc(record.version || '未记录')}</span></div><div class="dimensions">${dimensions}</div></section><section><h3>客观题作答明细</h3>${passage ? `<p class="small muted">本卷阅读材料</p><div class="passage">${esc(passage)}</div>` : ''}${answers || '<p class="empty">这份记录没有完整的试题快照，无法还原题目。</p>'}</section><section class="writing-section"><h3>短表达原文</h3><p class="writing-prompt">${esc(snapshot.writing?.prompt || '请结合本课写作要求评分。')}</p><div class="writing-text">${esc(writing || '学生未填写短表达。')}</div>${snapshot.writing?.source ? `<p class="source-note">来源：${esc(sourceText(snapshot.writing.source))}</p>` : ''}<p class="grade-metadata">${record.grade?.gradedAt ? `上次批改：${esc(displayDate(record.grade.gradedAt))}` : '尚未批改'} · 评分版本 ${esc(record.gradeRevision ?? 0)}</p></section>`;
+    byId('attemptDetail').innerHTML = `<section class="attempt-banner"><h3>${esc(lessonName(record))}</h3><div class="attempt-meta"><span>客观题 <strong>${esc(textScore(record.objectiveScore, objectiveMax(record)))}</strong></span>${legacy?`<span>旧版短表达 <strong>${isGraded(record) ? esc(textScore(record.writingScore, 20)) : '待批改'}</strong></span>`:'<span>全部题目已自动评分</span>'}<span>总分 <strong>${isGraded(record) ? esc(textScore(record.totalScore, 100)) : '待短表达评分'}</strong></span></div><div class="attempt-meta small muted"><span>${esc(displayDate(record.submittedAt))}</span><span>用时 ${esc(durationText(record.durationSeconds))}</span><span>版本 ${esc(record.version || '未记录')}</span></div><div class="dimensions">${dimensions}</div></section><section><h3>客观题作答明细</h3>${passage ? `<p class="small muted">本卷阅读材料</p><div class="passage">${esc(passage)}</div>` : ''}${answers || '<p class="empty">这份记录没有完整的试题快照，无法还原题目。</p>'}</section>${legacy?`<section class="writing-section"><h3>短表达原文</h3><p class="writing-prompt">${esc(snapshot.writing?.prompt || '请结合本课写作要求评分。')}</p><div class="writing-text">${esc(writing || '学生未填写短表达。')}</div>${snapshot.writing?.source ? `<p class="source-note">来源：${esc(sourceText(snapshot.writing.source))}</p>` : ''}<p class="grade-metadata">${record.grade?.gradedAt ? `上次批改：${esc(displayDate(record.grade.gradedAt))}` : '尚未批改'} · 评分版本 ${esc(record.gradeRevision ?? 0)}</p></section>`:''}`;
     ['content', 'grammar', 'expression'].forEach(key => { byId(`${key}Score`).value = number(record.grade?.scores?.[key]) === null ? '' : record.grade.scores[key]; });
     byId('gradeFeedback').value = typeof record.grade?.feedback === 'string' ? record.grade.feedback : '';
     byId('saveGrade').textContent = isGraded(record) ? '更新批改到云端' : '保存批改到云端';
@@ -296,7 +301,7 @@
     if (state.saving) return;
     const record = state.records.find(item => item.documentId === state.activeDocument);
     const scores = getGradeScores();
-    if (!record || !state.password) return;
+    if (!record || !state.password || isAuto(record)) return;
     if (!scores) { setMessage('gradeMessage', '请填写合法的分数：内容0—8，目标句型0—8，表达0—4。', 'error'); return; }
     const epoch = state.epoch;
     const documentId = record.documentId;
@@ -343,13 +348,13 @@
     const latestOnly = byId('exportScope').value === 'latest';
     const records = scopedRecords(matchingGroups(), latestOnly).sort(newestFirst);
     if (!records.length) return;
-    const headers = ['班级（自报）', '姓名（自报）', '学号（自报）', '课次', '课名', '试卷版本', '客观分（满分80）', '词语分', '语法分', '阅读分', '批改状态', '短表达分（满分20）', '总分（满分100）', '内容分（满分8）', '目标句型分（满分8）', '表达分（满分4）', '短表达原文', '教师反馈', '提交时间', '作答秒数', '批改时间', '评分版本', '历次提交标识', '云端记录标识', '作答明细'];
+    const headers = ['班级（自报）', '姓名（自报）', '学号（自报）', '课次', '课名', '试卷版本', '客观分', '客观题满分', '词语分', '词语满分', '语法分', '语法满分', '阅读分', '阅读满分', '评分状态', '旧版短表达分（满分20）', '总分（满分100）', '内容分（满分8）', '目标句型分（满分8）', '表达分（满分4）', '短表达原文', '教师反馈', '提交时间', '作答秒数', '批改时间', '评分版本', '历次提交标识', '云端记录标识', '作答明细'];
     const rows = records.map(record => [
       record.student?.className, record.student?.name,
       record.student?.studentNumber ? `'${record.student.studentNumber}` : '',
       lessonId(record), record.lessonTitle || LESSONS[lessonId(record)], record.version,
-      record.objectiveScore, record.dimensionScores?.vocabulary?.score, record.dimensionScores?.grammar?.score, record.dimensionScores?.reading?.score,
-      isGraded(record) ? '已批改' : '待批改', record.writingScore, record.totalScore,
+      record.objectiveScore, objectiveMax(record), record.dimensionScores?.vocabulary?.score, record.dimensionScores?.vocabulary?.max, record.dimensionScores?.grammar?.score, record.dimensionScores?.grammar?.max, record.dimensionScores?.reading?.score, record.dimensionScores?.reading?.max,
+      statusText(record), isAuto(record)?'':record.writingScore, record.totalScore,
       record.grade?.scores?.content, record.grade?.scores?.grammar, record.grade?.scores?.expression,
       record.writing, record.grade?.feedback, record.submittedAt, record.durationSeconds, record.grade?.gradedAt,
       record.gradeRevision ?? 0, record.attemptId, record.documentId, JSON.stringify(record.results || [])
