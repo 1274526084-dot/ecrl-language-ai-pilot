@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="referrer" content="no-referrer">
   <title>阶段测试 · 教师工作台</title>
-  <link rel="stylesheet" href="stage-teacher.css?v=20260928c">
-  <script src="stage-teacher.js?v=20260928c" defer></script>
+  <link rel="stylesheet" href="stage-teacher.css?v=20261012a">
+  <script src="stage-teacher.js?v=20261012a" defer></script>
 </head>
 <body>
   <section id="loginView" class="login-wrap">
@@ -14,7 +14,7 @@
       <div class="brand-mark" aria-hidden="true">教</div>
       <p class="eyebrow">《实用汉语5》 · 第8—14课</p>
       <h1>阶段测试教师工作台</h1>
-      <p class="muted">查看班级成绩、比较同课重做记录，并批改短表达。</p>
+      <p class="muted">查看自动评分、阅读表现和同课重做记录。旧版作答保留查阅。</p>
       <form id="loginForm">
         <label for="teacherPassword">教师密码</label>
         <input id="teacherPassword" type="password" autocomplete="current-password" required maxlength="200" aria-describedby="loginNote">
@@ -53,19 +53,19 @@
       <section class="metrics" aria-label="当前筛选统计">
         <article class="metric"><span>已参与学生</span><strong id="studentCount">0</strong><small>当前筛选内去重人数</small></article>
         <article class="metric"><span>每人每课最新提交</span><strong id="latestCount">0</strong><small>一位学生可有多课记录</small></article>
-        <article class="metric"><span>最新提交待批改</span><strong id="pendingCount">0</strong><small>短表达尚未评分</small></article>
+        <article class="metric"><span>旧版最新提交待批改</span><strong id="pendingCount">0</strong><small>仅统计旧版短表达</small></article>
         <article class="metric"><span>历次提交</span><strong id="attemptCount">0</strong><small>含同课重做</small></article>
       </section>
 
       <section class="card">
-        <div class="section-heading"><div><p class="eyebrow">班级概览</p><h2>每一课，分别看</h2></div><span class="pill">客观题满分 80</span></div>
-        <p class="small muted">人数、平均分和待批改数均取该学生该课的最新提交。平均客观分包含待批改记录；混合卷版本会注明。</p>
-        <div class="table-wrap"><table class="summary-table"><caption class="sr-only">按班级与课次汇总的最新提交</caption><thead><tr><th scope="col">班级</th><th scope="col">课次</th><th scope="col">已交人数</th><th scope="col">平均客观分 / 80</th><th scope="col">待批改</th><th scope="col">试卷版本</th></tr></thead><tbody id="classSummaryRows"></tbody></table></div>
+        <div class="section-heading"><div><p class="eyebrow">班级概览</p><h2>每一课，分别看</h2></div><span class="pill">新版全客观题 · 满分 100</span></div>
+        <p class="small muted">人数和平均分取每人每课最新提交，按试卷版本和满分分别统计，不混算新旧试卷。旧版待批改记录也计入该版客观分。</p>
+        <div class="table-wrap"><table class="summary-table"><caption class="sr-only">按班级与课次汇总的最新提交</caption><thead><tr><th scope="col">班级</th><th scope="col">课次</th><th scope="col">已交人数</th><th scope="col">平均客观分 / 满分</th><th scope="col">待批改</th><th scope="col">试卷版本</th></tr></thead><tbody id="classSummaryRows"></tbody></table></div>
       </section>
 
       <section class="card">
         <div class="section-heading"><div><p class="eyebrow">学生记录</p><h2>七课成绩，一行查看</h2></div><span id="rowCount" class="pill"></span></div>
-        <p class="small muted">各课显示最新客观分和批改状态。选定课次会筛出已交该课的学生，仍展示这些学生的七课对照。表格可左右滚动。各课试题不同，跨课分数变化不直接代表学习进步。</p>
+        <p class="small muted">各课显示最新客观分、满分和评分状态。选定课次会筛出已交该课的学生，仍展示这些学生的七课对照。表格可左右滚动。各课试题不同，跨课分数变化不直接代表学习进步。</p>
         <div class="table-wrap" tabindex="0" role="region" aria-label="学生七课成绩，可左右滚动"><table class="student-table"><caption class="sr-only">每位学生第8—14课最新成绩</caption><thead><tr id="studentHeaders"></tr></thead><tbody id="studentRows"></tbody></table></div>
       </section>
       <p class="footer-note">数据从云端读取；本页仅在当前页面内存中保留本次查看结果。学生端不能查询其他学生的记录。</p>
@@ -73,12 +73,12 @@
   </div>
 
   <dialog id="detailDialog" aria-labelledby="detailTitle">
-    <div class="dialog-header"><div><p class="eyebrow">历次作答与短表达</p><h2 id="detailTitle"></h2><p id="detailIdentity" class="small muted"></p></div><button id="closeDetail" class="close-button" aria-label="关闭学生详情" type="button">×</button></div>
+    <div class="dialog-header"><div><p class="eyebrow">历次作答详情</p><h2 id="detailTitle"></h2><p id="detailIdentity" class="small muted"></p></div><button id="closeDetail" class="close-button" aria-label="关闭学生详情" type="button">×</button></div>
     <div class="dialog-body">
       <section aria-labelledby="historyTitle"><h3 id="historyTitle">历次提交</h3><p class="small muted">点击一条记录查看。相同课次与相同版本的重做记录可对照客观分；以下按提交时间排序。</p><div id="attemptHistory" class="history-list"></div></section>
       <div id="attemptDetail"></div>
       <form id="gradeForm" class="grade-panel">
-        <div class="section-heading"><h3>短表达批改</h3><span class="pill">共 20 分</span></div>
+        <div class="section-heading"><h3>旧版短表达批改</h3><span class="pill">共 20 分</span></div>
         <div class="grade-fields">
           <div><label for="contentScore">内容 <span class="muted">/ 8</span></label><input id="contentScore" name="content" type="number" inputmode="numeric" min="0" max="8" step="1" required><p class="small muted">回应题目，信息完整。</p></div>
           <div><label for="grammarScore">目标句型 <span class="muted">/ 8</span></label><input id="grammarScore" name="grammar" type="number" inputmode="numeric" min="0" max="8" step="1" required><p class="small muted">按要求使用本课词语或句型。</p></div>
